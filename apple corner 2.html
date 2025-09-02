@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Superellipse (x^4 + y^4 = 1) 420x240</title>
+<style>
+  body {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    margin:0;
+    background:#111;
+    color:#fff;
+    font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  }
+  .card { width:420px; max-width:90vw; }
+  svg { display:block; width:100%; height:auto; overflow:visible; }
+  .content { font-size:18px; text-anchor:middle; fill:white; dominant-baseline:middle; pointer-events:none; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <svg id="svg" viewBox="-4 -4 428 248" aria-hidden="false" role="img">
+    <defs>
+      <clipPath id="superClip" clipPathUnits="userSpaceOnUse">
+        <path id="superPath" d="" />
+      </clipPath>
+      <linearGradient id="bgGrad" x1="0" x2="1">
+        <stop offset="0" stop-color="#ff7a7a" />
+        <stop offset="1" stop-color="#ffb86b" />
+      </linearGradient>
+    </defs>
+
+    <g clip-path="url(#superClip)">
+      <rect x="-4" y="-4" width="428" height="248" fill="url(#bgGrad)" />
+      <text class="content" x="50%" y="50%">x⁴ + y⁴ = 1</text>
+    </g>
+
+    <path id="outline" d="" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="3"/>
+  </svg>
+</div>
+
+<script>
+(function () {
+  const pathEl = document.getElementById('superPath');
+  const outline = document.getElementById('outline');
+  const W = 420, H = 240;
+  const cx = W/2, cy = H/2;
+  const cornerRadius = 100; // controls roundness
+  const a = W/2 - (W/2 - cornerRadius);
+  const b = H/2 - (H/2 - cornerRadius);
+  const n = 6;
+  const exponent = 4 / n;
+  const steps = 360;
+  function sgn(v){ return v < 0 ? -1 : 1; }
+
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * Math.PI * 2;
+    const c = Math.cos(t), s = Math.sin(t);
+    const x = cx + (W/2 - cornerRadius) * sgn(c) + cornerRadius * sgn(c) * Math.pow(Math.abs(c), exponent);
+    const y = cy + (H/2 - cornerRadius) * sgn(s) + cornerRadius * sgn(s) * Math.pow(Math.abs(s), exponent);
+    d += (i === 0 ? 'M ' : ' L ') + x.toFixed(3) + ' ' + y.toFixed(3);
+  }
+  d += ' Z';
+
+  pathEl.setAttribute('d', d);
+  outline.setAttribute('d', d);
+})();
+</script>
+</body>
+</html>
