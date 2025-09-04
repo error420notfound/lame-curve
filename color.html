@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+
+    }
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 100vh;
+  width: 100vw;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.grid-item {
+  /* border: 0.5px solid rgba(0, 0, 0, 0.2); */
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 20px;
+  
+}
+
+.grid-item:nth-child(1) {
+  background:  linear-gradient(in display-p3 to bottom, color(display-p3 1.000000 1.000000 1.000000), oklch(0.452 0.313 264.1));
+}
+
+.grid-item:nth-child(2) {
+  background: linear-gradient(in srgb to bottom, rgb(255, 255, 255), rgb(0, 0, 255));
+}
+
+.grid-item:nth-child(3) {
+  background: linear-gradient(in srgb-linear to bottom, #ffffff, #0000ff);
+}
+
+.grid-item:nth-child(4) {
+  background: linear-gradient(in oklab to bottom, oklab(1.000 0.000 0), oklab(0.452014 -0.032432 -0.311636));
+}
+
+.grid-item:nth-child(5) {
+  background: linear-gradient(in lch to bottom, lch(100% 0.01 296.81), lch(32.3% 133.82 306.29));
+}
+
+.grid-item:nth-child(6) {
+  background: linear-gradient(in oklch to bottom, oklch(1.000 0.000 0), oklch(0.452 0.313 264.1));
+}
+
+.grid-item:nth-child(7) {
+  background: linear-gradient(in lab to bottom, lab(100% 0.01 -0.01), lab(32.3% 79.2 -107.86));
+}
+
+.grid-item:nth-child(8) {
+  background: linear-gradient(in hsl to bottom, hsl(0, 0%, 100%), hsl(240, 100%, 50%));
+}
+
+.grid-item:nth-child(9) {
+  background: linear-gradient(in hwb to bottom, hwb(0 100% 0%), hwb(240 0% 0%));
+}
+</style>
+</head>
+<body>
+
+<div class="grid-container">
+  <div class="grid-item">in display-p3</div>
+  <div class="grid-item">in srgb</div>
+  <div class="grid-item">in srgb linear</div>  
+  <div class="grid-item">in oklab</div>
+  <div class="grid-item">in lch</div>
+  <div class="grid-item">in oklch</div>  
+  <div class="grid-item">in lab</div>
+  <div class="grid-item">in hsl</div>
+  <div class="grid-item">in hwb</div>  
+</div>
+
+</body>
+</html>
