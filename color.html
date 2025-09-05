@@ -43,7 +43,7 @@
   font-weight: 300;
 }
 .grid-item:nth-child(1) {
-  background:  linear-gradient(in display-p3 to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
+  background:  linear-gradient(to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
 }
 
 .grid-item:nth-child(2) {
@@ -82,7 +82,10 @@
 }
 .grid-item:nth-child(11) {
   background:  linear-gradient(in oklch to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
-}     
+}  
+     .grid-item:nth-child(12) {
+  background:  linear-gradient(in oklch to bottom, rgba(255 255 255 / 1), rgba(0 0 255 / 1));
+}  
 </style>
 </head>
 <body>
@@ -98,7 +101,8 @@
   <div class="grid-item">in HSL</div>
   <div class="grid-item">in HWB</div>
   <div class="grid-item">in RGBA</div>
-  <div class="grid-item">in DISPLAY-P3 (w/okLCh)</div>   
+  <div class="grid-item">in OKLCH (w/DISPLAY-P3)</div>   
+     <div class="grid-item">in OKLCH (w/RGBA)</div>
 </div>
 
 </body>
