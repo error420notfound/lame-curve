@@ -17,21 +17,25 @@
 
     }
 
-     .grid-container {
+.grid-container {
   display: grid;
-  /* responsive columns that wrap */
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* auto-fit or auto-fill */ /* [12][11] */
-  gap: 24px; /* controls gutters between items */ /* [2] */
-  padding: 24px; /* inner padding around the whole grid */ /* [19] */
+  /* Make columns responsive and not too small on mobile */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(clamp(240px, 45vw, 420px), 1fr)
+  ); /* [1][2] */
+  /* Responsive gutters and container padding */
+  gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
+  padding: clamp(12px, 3vw, 24px); /* [2] */
   height: 100%;
   width: 100%;
-  box-sizing: border-box; /* ensures padding doesn’t cause scrollbars */ /* [13] */
+  box-sizing: border-box;
 }
 
 .grid-item {
-  padding: 20px;
+  padding: clamp(16px, 3vw, 24px); /* scale content padding a bit on mobile */ /* [2] */
   text-align: center;
-  border-radius: 20px;
+  border-radius: 24px;
   font-size: 1em;
   font-weight: 300;
 }
