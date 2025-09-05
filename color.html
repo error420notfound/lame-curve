@@ -22,7 +22,7 @@
   /* Make columns responsive and not too small on mobile */
   grid-template-columns: repeat(
     auto-fit,
-    minmax(clamp(240px, 45vw, 420px), 1fr)
+    minmax(clamp(220px, 45vw, 420px), 1fr)
   ); /* [1][2] */
   /* Responsive gutters and container padding */
   gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
@@ -73,6 +73,9 @@
 
 .grid-item:nth-child(9) {
   background: linear-gradient(in hwb to bottom, hwb(0 100% 0%), hwb(240 0% 0%));
+}
+     .grid-item:nth-child(10) {
+  background: rgba(blue);
 }
 </style>
 </head>
