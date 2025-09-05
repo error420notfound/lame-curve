@@ -10,35 +10,33 @@
 <style>
     body, html {
         margin: 0;
-        padding: 0px;
+        padding: 0;
         height: 100vh;
         width: 100vw;
         font-family: 'Spectral', sans-serif; /* Applying the custom font */  
 
     }
-.grid-container {
+
+     .grid-container {
   display: grid;
-    
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  height: inherit;
-  width: inherit;
-  gap: 20px;
-     /* padding: 20px; */
-  
-  /* justify-content: space-between; */
+  /* responsive columns that wrap */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* auto-fit or auto-fill */ /* [12][11] */
+  gap: 24px; /* controls gutters between items */ /* [2] */
+  padding: 24px; /* inner padding around the whole grid */ /* [19] */
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box; /* ensures padding doesn’t cause scrollbars */ /* [13] */
 }
+
 .grid-item {
-  /* border: 0.5px solid rgba(0, 0, 0, 0.2); */
   padding: 20px;
   text-align: center;
   border-radius: 20px;
-  font-size: 1em; /* Setting the text size */
-      font-weight: 300; /* Setting the font weight */
+  font-size: 1em;
+  font-weight: 300;
 }
-
 .grid-item:nth-child(1) {
-  background:  linear-gradient(in display-p3 to bottom, color(display-p3 1.000000 1.000000 1.000000), oklch(0.452 0.313 264.1));
+  background:  linear-gradient(in display-p3 to bottom, color(display-p3 1.000000 1.000000 1.000000), color(display-p3(0.000000 0.000000 0.959588));
 }
 
 .grid-item:nth-child(2) {
@@ -46,7 +44,7 @@
 }
 
 .grid-item:nth-child(3) {
-  background: linear-gradient(in srgb-linear to bottom, #ffffff, #0000ff);
+  background: linear-gradient(in srgb-linear to bottom, #fff, #00f);
 }
 
 .grid-item:nth-child(4) {
@@ -58,7 +56,7 @@
 }
 
 .grid-item:nth-child(6) {
-  background: linear-gradient(in oklch to bottom, oklch(1.000 0.000 0), oklch(0.452 0.313 264.1));
+  background: linear-gradient(in oklch to bottom, oklch(1.000 0.000 0), oklch(0.452 0.313 264.1));  /* sus */
 }
 
 .grid-item:nth-child(7) {
