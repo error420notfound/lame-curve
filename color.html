@@ -80,12 +80,15 @@
      .grid-item:nth-child(10) {
   background: rgb(0 0 255 / 1);
 }
+.grid-item:nth-child(10) {
+  background:  linear-gradient(in oklch to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
+}     
 </style>
 </head>
 <body>
 
 <div class="grid-container">
-  <div class="grid-item">in DISPLAY-P3 (w/okLCh)</div>
+  <div class="grid-item">in DISPLAY-P3</div>
   <div class="grid-item">in SRGB</div>
   <div class="grid-item">in SRGB LINEAR</div>  
   <div class="grid-item">in OKLAB</div>
@@ -93,7 +96,9 @@
   <div class="grid-item">in OKLCH</div>  
   <div class="grid-item">in LAB</div>
   <div class="grid-item">in HSL</div>
-  <div class="grid-item">in HWB</div>  
+  <div class="grid-item">in HWB</div>
+  <div class="grid-item">in RGBA</div>
+  <div class="grid-item">in DISPLAY-P3 (w/okLCh)</div>   
 </div>
 
 </body>
