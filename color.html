@@ -21,7 +21,6 @@
   display: grid;
   /* responsive columns that wrap */
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* auto-fit or auto-fill */ /* [12][11] */
-  grid-templete-rows: repeat(auto-fit, minmax(480px, 1fr));
   gap: 24px; /* controls gutters between items */ /* [2] */
   padding: 24px; /* inner padding around the whole grid */ /* [19] */
   height: 100%;
@@ -37,7 +36,7 @@
   font-weight: 300;
 }
 .grid-item:nth-child(1) {
-  background:  linear-gradient(in display-p3 to bottom, color(display-p3 1.000000 1.000000 1.000000), color(display-p3(0.000000 0.000000 0.959588));
+  background:  linear-gradient(in oklch to bottom, color(display-p3 1.000000 1.000000 1.000000), color(display-p3(0.000000 0.000000 0.959588));
 }
 
 .grid-item:nth-child(2) {
@@ -76,7 +75,7 @@
 <body>
 
 <div class="grid-container">
-  <div class="grid-item">in DISPLAY-P3</div>
+  <div class="grid-item">in DISPLAY-P3 (w/okLCh)</div>
   <div class="grid-item">in SRGB</div>
   <div class="grid-item">in SRGB LINEAR</div>  
   <div class="grid-item">in OKLAB</div>
