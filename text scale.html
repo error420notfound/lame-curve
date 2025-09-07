@@ -20,7 +20,7 @@
   /* Make columns responsive and not too small on mobile */
   grid-template-columns: repeat(
     auto-fit,
-    minmax(clamp(auto-fit, 1fr) )); /* [1][2] */
+    minmax(clamp(fill, 1fr) )); /* [1][2] */
   /* Responsive gutters and container padding */
   gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
   padding: clamp(12px, 3vw, 24px); /* [2] */
@@ -64,6 +64,11 @@
 .grid-item:nth-child(3) { font-size: 1.6rem; }
 .grid-item:nth-child(4) { font-size: 1.8rem; }
 .grid-item:nth-child(5) { font-size: 2rem; }
+     .grid-item:nth-child(6) { font-size: 2.4rem; }
+     .grid-item:nth-child(7) { font-size: 2.5rem; }
+     .grid-item:nth-child(8) { font-size: 3rem; }
+     .grid-item:nth-child(9) { font-size: 4rem; }
+     .grid-item:nth-child(10) { font-size: 5rem; }
 </style>
 </head>
 <body>
@@ -88,5 +93,25 @@
           <div class="size-label">2rem</div>
           <div class="hello">Hello</div>
     </div>
+          <div class="grid-item">
+          <div class="size-label">2.4rem</div>
+          <div class="hello">Hello</div>
+    </div>
+          <div class="grid-item">
+          <div class="size-label">2.5rem</div>
+          <div class="hello">Hello</div>
+    </div>
+          <div class="grid-item">
+          <div class="size-label">3rem</div>
+          <div class="hello">Hello</div>
+    </div>
+          <div class="grid-item">
+          <div class="size-label">4rem</div>
+          <div class="hello">Hello</div>
+    </div>
+          <div class="grid-item">
+          <div class="size-label">5rem</div>
+          <div class="hello">Hello</div>
+    </div>\
 </body>
 </html>
