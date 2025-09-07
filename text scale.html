@@ -15,7 +15,7 @@
         width: 100vw;
     }
 html {
-    font-size: 10px;
+    font-size: 16px;
 }
 .grid-container {
   display: grid;
@@ -25,7 +25,7 @@ html {
     fill); /* [1][2] */
   /* Responsive gutters and container padding */
   gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
- /* padding: clamp(12px, 3vw, 24px); /* [2] */
+ padding: clamp(12px, 3vw, 24px); /* [2] */
   /* height fix */
   
   width: 100%;
@@ -37,16 +37,16 @@ html {
  /* min-height: 30vh;   /* ensures it’s at least 30% of viewport */
   height: auto;       /* let it grow if content needs more */
      width: fill;
-  padding: clamp(16px, 3vw, 24px); /* scale content padding a bit on mobile */ /* [2] */
+  /* padding: clamp(16px, 3vw, 24px); /* scale content padding a bit on mobile */ /* [2] */
   text-align: left;
   font-weight: 300;
 }
 
 .size-label {
     font-family: Rajdhani;
-  font-size: 0.7rem;
+  font-size: qrem;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   color: #444;
 
 }
