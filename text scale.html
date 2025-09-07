@@ -20,7 +20,7 @@
   /* Make columns responsive and not too small on mobile */
   grid-template-columns: repeat(
     auto-fit,
-    minmax(clamp(fill, 1fr) )); /* [1][2] */
+    fill); /* [1][2] */
   /* Responsive gutters and container padding */
   gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
   padding: clamp(12px, 3vw, 24px); /* [2] */
@@ -66,9 +66,9 @@
 .grid-item:nth-child(5) { font-size: 2rem; }
      .grid-item:nth-child(6) { font-size: 2.4rem; }
      .grid-item:nth-child(7) { font-size: 2.5rem; }
-     .grid-item:nth-child(8) { font-size: 3rem; }
-     .grid-item:nth-child(9) { font-size: 4rem; }
-     .grid-item:nth-child(10) { font-size: 5rem; }
+     .grid-item:nth-child(8) { font-size: 3em; }
+     .grid-item:nth-child(9) { font-size: 4em; }
+     .grid-item:nth-child(10) { font-size: 5em; }
 </style>
 </head>
 <body>
