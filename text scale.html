@@ -7,10 +7,10 @@
   
 <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Genos:ital,wght@0,100..900;1,100..900&family=Instrument+Serif:ital@0;1&family=Michroma&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Sarpanch:wght@400;500;600;700;800;900&family=Abereto:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <style>    body, html {
-        
+        margin: 0;
         padding: 0;
-        height: 100lvh;
-        width: 100lvw;
+        height: 100vh;
+        width: 100vw;
         background-color: rgb(242, 242, 247);
         font-size: 16px;
 }
@@ -18,8 +18,14 @@
  :root {
       --grid-item-font: 'Aboreto' ; /* default font */
     }
+    /* Dropdown styling */
+    .font-selector {
+      margin: 1rem;
+      padding: 12px 12px;
+      font-size: 1.2rem;
+    }
 
-<!-- Font Details-->>
+<!-- Font Details-->
 .aboreto-regular {
   font-family: "Aboreto", system-ui;
   font-weight: 400;
@@ -217,12 +223,12 @@
   display: grid;
   /* Make columns responsive and not too small on mobile */
  grid-template-columns: repeat(
-    auto-fit, minmax(clamp(220px, 45vw, 420px), 1fr)); 
+    auto-fit, minmax(clamp(360px, 45vw, 420px), 1fr)); 
   /* Responsive gutters and container padding */
   /* grid-template-rows: 1fr; */
   gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
-  padding: clamp(12px, 3vw, 24px); /* [2] */
-  width: 100%;
+  padding: clamp(8px, 2vw, 24px); /* [2] */
+
   
   box-sizing: border-box;
 }
@@ -236,6 +242,7 @@
 .grid-item::after {
   content: "We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. From the smallest detail to the bigger picture, we design with intention and purpose, ensuring users don’t just see the work but feel the thought, care, and passion behind every element."; /* 👈 this is where you define the text ONCE */
   display: flex;
+
    background: rgb(229, 229, 234); 
   padding: 1rem 1rem;
   border-radius: 2rem;
@@ -259,7 +266,7 @@
 
 /* Different font sizes for each child */
 .grid-item:nth-child(1) { font-size: 0.75rem; }
-.grid-item:nth-child(2) { font-size: 1rem; }
+.grid-item:nth-child(2) { font-size: 1rem ;}
 .grid-item:nth-child(3) { font-size: 1.125rem; }
 .grid-item:nth-child(4) { font-size: 1.25rem; }
 .grid-item:nth-child(5) { font-size: 1.5rem; }
@@ -271,7 +278,7 @@
 
 
 <body>
- rem=16px
+ 
   <!-- Dropdown -->
   <select class="font-selector" id="fontSelect">
     <option value="'Aboreto'">Aboreto</option>
