@@ -12,7 +12,9 @@
         height: 100vh;
         width: 100vw;
         background-color: rgb(229, 229, 234);
+        
         font-size: 16px;
+        overflow : visible; 
 }
 
  :root {
@@ -21,10 +23,28 @@
     /* Dropdown styling */
     .font-selector {
       margin: 1rem;
-      padding: 12px 12px;
+      padding: 1rem 1rem;
       font-size: 1.2rem;
+
     }
 
+.menu {
+  display: flex; 
+  align-items: center;
+ justify-content: center;
+  padding: 0.5rem; 
+margin: 1rem;
+border-style: solid;
+border-radius: 2rem;
+border-width: 0.5px;
+border-color: rgba(255, 56, 60, 0.3);
+  position : sticky ; 
+  bottom: 1rem;
+  background: rgba(229, 229, 234, 0.3); /* semi-transparent bg */
+   backdrop-filter : blur(10px) ; 
+   -webkit-backdrop-filter: blur(10px); /* Safari */
+   z-index: 1000; 
+}
 <!-- Font Details-->
 .aboreto-regular {
   font-family: "Aboreto", system-ui;
@@ -242,8 +262,8 @@
 .grid-item::after {
   content: "We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. From the smallest detail to the bigger picture, we design with intention and purpose, ensuring users don’t just see the work but feel the thought, care, and passion behind every element."; /* 👈 this is where you define the text ONCE */
   display: flex;
-
-   background: rgb(242, 242, 247); 
+  
+  background: rgb(242, 242, 247); 
   padding: 1rem 1rem;
   border-radius: 2rem;
   font-family: var(--grid-item-font);
@@ -265,11 +285,18 @@
 
 
 /* Different font sizes for each child */
-.grid-item:nth-child(1) { font-size: 0.75rem; }
-.grid-item:nth-child(2) { font-size: 1rem ;}
+.grid-item:nth-child(1) { font-size: 0.75rem;}
+.grid-item:nth-child(2) { font-size: 1rem;}
 .grid-item:nth-child(3) { font-size: 1.125rem; }
 .grid-item:nth-child(4) { font-size: 1.25rem; }
 .grid-item:nth-child(5) { font-size: 1.5rem; }
+.grid-item:nth-child(6) { font-size: 1.75rem; }
+.grid-item:nth-child(7) { font-size: 1.8rem; }
+.grid-item:nth-child(8) { font-size: 2rem; }
+.grid-item:nth-child(9) { font-size: 2.4rem; }
+.grid-item:nth-child(10) { font-size: 2.5rem; }
+.grid-item:nth-child(11) { font-size: 2.75rem; }
+.grid-item:nth-child(12) { font-size: 3rem; }
 
 
 </style>
@@ -279,7 +306,25 @@
 
 <body>
  
-  <!-- Dropdown -->
+
+ 
+    <div class="grid-container">
+        <div class="grid-item"><div class="size-label">0.75rem</div></div>
+        <div class="grid-item"><div class="size-label">1rem</div></div>
+        <div class="grid-item"><div class="size-label">1.125rem</div></div>
+        <div class="grid-item"><div class="size-label">1.25rem</div></div>
+        <div class="grid-item"><div class="size-label">1.5rem</div></div>
+        <div class="grid-item"><div class="size-label">1.75rem</div></div>
+        <div class="grid-item"><div class="size-label">1.8rem</div></div>
+        <div class="grid-item"><div class="size-label">2rem</div></div>
+        <div class="grid-item"><div class="size-label">2.4rem</div></div>
+        <div class="grid-item"><div class="size-label">2.5rem</div></div>
+        <div class="grid-item"><div class="size-label">2.75rem</div></div>
+        <div class="grid-item"><div class="size-label">3rem</div></div>
+        \
+    </div>
+
+  <!-- Dropdown --><div class="menu">
   <select class="font-selector" id="fontSelect">
     <option value="'Aboreto'">Aboreto</option>
     <option value="'Geist'">Geist</option>
@@ -292,17 +337,7 @@
     <option value="'Michroma'">Michroma</option>
     <option value="'Sarpanch'">Sarpanch</option>
   </select>
-
- 
-    <div class="grid-container">
-        <div class="grid-item"><div class="size-label">0.75rem</div></div>
-        <div class="grid-item"><div class="size-label">1rem</div></div>
-        <div class="grid-item"><div class="size-label">1.125rem</div></div>
-        <div class="grid-item"><div class="size-label">1.25rem</div></div>
-        <div class="grid-item"><div class="size-label">1.5rem</div></div>
-    </div>
-
-
+</div>
   <script>
     const fontSelect = document.getElementById('fontSelect');
 
@@ -313,3 +348,4 @@
 
 </body>
 </html>
+/
