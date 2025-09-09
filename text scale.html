@@ -10,9 +10,8 @@
 <style>    body, html {
         margin: 0;
         padding: 0;
-        height: 100vh;
-        width: 100vw;
-        background-color: rgb(229, 229, 234);
+        
+         background-color: "body-dark"; 
         
         font-size: 16px;
         overflow : visible; 
@@ -34,33 +33,38 @@
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 24
+  'opsz' 18
 }
 
 .menu {
-  display: flex; 
+  display: inline-flex; 
   align-items: center;
- justify-content: center;
-  padding: 0rem; 
-margin: 2rem;
-border-style:  inset;
-border-radius: 2rem;
-border-width: 2px;
-border-color: rgba(255, 56, 60, 0.2);
-  position : sticky ; 
+  justify-content: center;
+  gap: 1rem; /* space between dropdown + button */
+
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(255, 56, 60, 0.2);
+  border-radius: 3rem;
+
+  position: sticky; 
   bottom: 1rem;
-  background: rgba(229, 229, 234, 0.1); /* semi-transparent bg */
-   backdrop-filter : blur(10px) ; 
-   -webkit-backdrop-filter: blur(10px); /* Safari */
-   z-index: 1000; 
+  left: 50%;
+  transform: translateX(-50%); /* <-- centers horizontally */
+
+  background: rgba(229, 229, 234, 0.1); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000; 
 }
 
+
 .theme-toggle {
-  margin-left: 1rem;
+  margin: 1rem;
   padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: transparent;
+  border: 0.5px;
+  border-style: solid;
+  border-radius: 2rem;
+  background: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -77,32 +81,32 @@ body.dark .theme-toggle:hover {
 }
 
 body.light .theme-toggle {
-  background: #e0e0e0;
-  color: #000;
+  background: rgb(229, 229, 234);
+  color: rgb(28, 28, 30);
   transition: background 0.3s, color 0.3s;
 }
 
 body.dark .theme-toggle {
-  background: #333;
-  color: #fff;
+  background: rgb(28, 28, 30);
+  color: rgb(242, 242, 247);
   transition: background 0.3s, color 0.3s;
 }
 
 body.light {
   background-color: rgb(229, 229, 234);
-  color: #000;
+  color: rgb(28, 28, 30);
   transition: background 0.3s, color 0.3s;
 }
 
 body.dark {
-  background-color: #111;
-  color: #f2f2f2;
+  background-color: rgb(28, 28, 30);;
+  color: rgb(229, 229, 234);
   transition: background 0.3s, color 0.3s;
 }
 
 body.dark .grid-item::after {
-  background: #222;
-  color: #f2f2f2;
+  background: rgb(44, 44, 46);
+  color: rgb(242, 242, 247);
   transition: background 0.3s, color 0.3s;
 }
 
@@ -324,7 +328,7 @@ body.dark .grid-item::after {
 .grid-item::after {
   content: "We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. From the smallest detail to the bigger picture, we design with intention and purpose, ensuring users don’t just see the work but feel the thought, care, and passion behind every element."; /* 👈 this is where you define the text ONCE */
   display: flex;
-  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background: rgb(242, 242, 247); 
   padding: 1rem 1rem;
   border-radius: 2rem;
