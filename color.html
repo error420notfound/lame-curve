@@ -3,19 +3,142 @@
 <head>
      <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffee Dripper Stand</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-<style>
-    body, html {
+  <title>Color test</title>
+<link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Genos:ital,wght@0,100..900;1,100..900&family=Instrument+Serif:ital@0;1&family=Michroma&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Sarpanch:wght@400;500;600;700;800;900&family=Abereto:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=contrast" />
+<style>    body, html {
         margin: 0;
         padding: 0;
-        height: 100vh;
-        width: 100vw;
-        font-family: 'Spectral', sans-serif; /* Applying the custom font */  
+        
+        background-color: "body-dark";
+        
+        font-size: 12px; /* base for mobile (~12px = 1rem) */ 
+        overflow : visible; 
+}
 
+
+@media (min-width: 810px) {
+  html {
+    font-size: 14px; /* tablets */
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px; /* standard desktops / laptops (1920x1080) */
+  }
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: 18px; /* 2K (1440p) screens */
+  }
+}
+
+@media (min-width: 2560px) {
+  html {
+    font-size: 20px; /* 4K screens */
+  }
+}
+
+
+:root {
+      --grid-item-font: 'Rajdhani' ; /* default font */
     }
+    /* Dropdown styling 
+    .font-selector {
+      margin: 1rem;
+      padding: 0rem 0rem;
+      font-size: 1rem;
+      font-weight: 500; 
+
+    } */
+    
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 18
+}
+
+.menu {
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* space between dropdown + button */
+
+  /* padding: 0.5rem 1rem; */
+  border: 2px solid rgba(255, 56, 60, 0.2);
+  border-radius: 3rem;
+
+  transform: translateX(-50%); /* <-- centers horizontally */
+  position: sticky; 
+  bottom: 1rem;
+  left: 50%;
+  
+  
+
+  background: rgba(229, 229, 234, 0.1); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000; 
+}
+
+
+.theme-toggle {
+  margin: 1rem;
+  padding: 0.5rem;
+  border: 0.5px;
+  border-style: solid;
+  border-radius: 2rem;
+  background: rgba(0, 0, 0, 0.5); 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.theme-toggle:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+body.dark .theme-toggle:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+body.light .theme-toggle {
+  background: rgb(229, 229, 234);
+  color: rgb(28, 28, 30);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark .theme-toggle {
+  background: rgb(28, 28, 30);
+  color: rgb(242, 242, 247);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: rgb(229, 229, 234);
+  color: rgb(28, 28, 30);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: rgb(28, 28, 30);;
+  color: rgb(229, 229, 234);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark  .grid-item::after {
+  background: rgb(44, 44, 46);
+  color: rgb(242, 242, 247);
+  transition: background 0.3s, color 0.3s;
+}
+
+
 
 .grid-container {
   display: grid;
@@ -33,85 +156,110 @@
   box-sizing: border-box;
 }
 
-.grid-item {
-  min-height: 30vh;   /* ensures it’s at least 30% of viewport */
-  height: auto;       /* let it grow if content needs more */
-  padding: clamp(16px, 3vw, 24px); /* scale content padding a bit on mobile */ /* [2] */
-  text-align: center;
-  border-radius: 24px;
-  font-size: 1em;
-  font-weight: 300;
+
+.grid-wraper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* spacing between label and  grid item */
+  background: transparent; /* default is fine, but make it explicit */
 }
-.grid-item:nth-child(1) {
+
+.color-label {
+  font-family: Rajdhani;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgb(255, 56, 60);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.color-label .color-value {
+  color: #2570D4;
+}
+
+ .grid-item {
+  min-height: 30vh;
+  width: 100%;              /* 👈 ensure it doesn’t collapse or spill oddly */
+  padding: clamp(16px, 3vw, 24px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19);
+  border-radius: 2rem;
+  box-sizing: border-box;   /* padding stays inside */
+}
+
+
+
+.grid-wraper:nth-child(1)  .grid-item {
   background:  linear-gradient(to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
 }
 
-.grid-item:nth-child(2) {
+.grid-wraper:nth-child(2)  .grid-item {
   background: linear-gradient(in srgb to bottom, rgb(255, 255, 255), rgb(0, 0, 255));
 }
 
-.grid-item:nth-child(3) {
+.grid-wraper:nth-child(3)  .grid-item {
   background: linear-gradient(in srgb-linear to bottom, #fff, #00f);
 }
 
-.grid-item:nth-child(4) {
+.grid-wraper:nth-child(4)  .grid-item {
   background: linear-gradient(in oklab to bottom, oklab(1.000 0.000 0), oklab(0.452014 -0.032432 -0.311636));
 }
 
-.grid-item:nth-child(5) {
+.grid-wraper:nth-child(5)  .grid-item {
   background: linear-gradient(in lch to bottom, lch(100% 0.01 296.81), lch(32.3% 133.82 306.29));
 }
 
-.grid-item:nth-child(6) {
+.grid-wraper:nth-child(6)  .grid-item {
   background: linear-gradient(in oklch to bottom, oklch(1.000 0.000 0), oklch(0.452 0.313 264.1));  /* sus */
 }
 
-.grid-item:nth-child(7) {
+.grid-wraper:nth-child(7)  .grid-item {
   background: linear-gradient(in lab to bottom, lab(100% 0.01 -0.01), lab(32.3% 79.2 -107.86));
 }
 
-.grid-item:nth-child(8) {
+.grid-wraper:nth-child(8)  .grid-item {
   background: linear-gradient(in hsl to bottom, hsl(0, 0%, 100%), hsl(240, 100%, 50%));
 }
 
-.grid-item:nth-child(9) {
+.grid-wraper:nth-child(9)  .grid-item {
   background: linear-gradient(in hwb to bottom, hwb(0 100% 0%), hwb(240 0% 0%));
 }
-     .grid-item:nth-child(10) {
+     .grid-wraper:nth-child(10)  .grid-item {
   background: rgb(0 0 255 / 1);
 }
-.grid-item:nth-child(11) {
+.grid-wraper:nth-child(11)  .grid-item  {
   background:  linear-gradient(in oklch to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
 }  
-     .grid-item:nth-child(12) {
+     .grid-wraper:nth-child(12)  .grid-item {
   background:  linear-gradient(in oklch to bottom, rgba(255 255 255 / 1), rgba(0 0 255 / 1));
 }  
 
-      .grid-item:nth-child(13) {
+      .grid-wraper:nth-child(13)  .grid-item {
   background:  linear-gradient(in oklch to bottom, oklch(1 0 180), oklch(0.4664 0.3232 264.05));
 }  
-      .grid-item:nth-child(14) {
+      .grid-wraper:nth-child(14)  .grid-item {
   background:  linear-gradient(in oklch to bottom, oklch(1 0 180), oklch(0.8488 0.3685224550303729 145.64502735055854));
 }  
-      .grid-item:nth-child(15) {
+      .grid-wraper:nth-child(15)  .grid-item {
   background:  linear-gradient(in oklch to bottom, oklch(1 0 180), oklch(0.6486 0.2995 28.96));
 }
-         .grid-item:nth-child(16) {
+         .grid-wraper:nth-child(16)  .grid-item {
   background:  linear-gradient(in oklch to bottom, oklch(0.4664 0.3232 264.05/ 0), oklch(0.4664 0.3232 264.05/ 1));
 }  
-      .grid-item:nth-child(17) {
+      .grid-wraper:nth-child(17)  .grid-item {
   background:  linear-gradient(in oklch to bottom, oklch(0.8488 0.3685224550303729 145.64502735055854 / 0), oklch(0.8488 0.3685224550303729 145.64502735055854 / 1));
 }  
-      .grid-item:nth-child(18) {
+      .grid-wraper:nth-child(18)  .grid-item {
   background:  linear-gradient(in oklch to bottom, oklch(0.6486 0.2995 28.96 / 0), oklch(0.6486 0.2995 28.96 / 1));
 }  
-       .grid-item:nth-child(19) {
+       .grid-wraper:nth-child(19)  .grid-item {
   background:  linear-gradient(in oklch-linear to bottom, oklch(0.4664 0.3232 264.05/ 0), oklch(0.4664 0.3232 264.05/ 1));
 }  
-      .grid-item:nth-child(20) {
+      .grid-wraper:nth-child(20)  .grid-item {
   background:  linear-gradient(in oklch-linear to bottom, oklch(0.8488 0.3685224550303729 145.64502735055854 / 0), oklch(0.8488 0.3685224550303729 145.64502735055854 / 1));
 }  
-      .grid-item:nth-child(21) {
+      .grid-wraper:nth-child(21)  .grid-item {
   background:  linear-gradient(in srgb-linear to bottom, oklch(0.6486 0.2995 28.96 / 0), oklch(0.6486 0.2995 28.96 / 1));
 } 
      
@@ -120,28 +268,48 @@
 <body>
 
 <div class="grid-container">
-  <div class="grid-item">w/DISPLAY-P3</div>
-  <div class="grid-item">in SRGB</div>
-  <div class="grid-item">in SRGB LINEAR</div>  
-  <div class="grid-item">in OKLAB</div>
-  <div class="grid-item">in LCH</div>
-  <div class="grid-item">in OKLCH</div>  
-  <div class="grid-item">in LAB</div>
-  <div class="grid-item">in HSL</div>
-  <div class="grid-item">in HWB</div>
-  <div class="grid-item">in RGBA</div>
-  <div class="grid-item">in OKLCH (w/DISPLAY-P3)</div>   
-     <div class="grid-item">in OKLCH (w/RGBA)</div>
-     <div class="grid-item">in OKLCH (w/OKLCH) W-Blue</div>
-     <div class="grid-item">in OKLCH (w/OKLCH) W-Green</div>
-     <div class="grid-item">in OKLCH (w/OKLCH) W-Red</div>
-     <div class="grid-item">in OKLCH (w/OKLCH) Blue</div>
-     <div class="grid-item">in OKLCH (w/OKLCH) Green</div>
-     <div class="grid-item">in OKLCH (w/OKLCH) Red</div>
-     <div class="grid-item">in OKLCH LINEAR (w/OKLCH) Blue</div>
-     <div class="grid-item">in OKLCH LINEAR (w/OKLCH) Green</div>
-     <div class="grid-item">in OKLCH LINEAR (w/OKLCH) Red</div>
+  <div class="grid-wraper"><div class="color-label"> w/DISPLAY-P3<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in SRGB<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in SRGB LINEAR<div class="color-value">Hello</div>  </div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLAB<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in LCH<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH<div class="color-value">Hello</div>  </div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in LAB<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in HSL<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in HWB<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in RGBA<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/DISPLAY-P3)<div class="color-value">Hello</div> </div><div class= "grid-item"></div></div>  
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/RGBA)<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Blue<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Green<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Red<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Blue<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Green<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Red<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH LINEAR (w/OKLCH) Blue<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH LINEAR (w/OKLCH) Green<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH LINEAR (w/OKLCH) Red<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
 </div>
+
+
+<div class="menu">
+<button class="theme-toggle" id="themeToggle">
+  <span class="material-symbols-outlined">contrast</span>
+</button></div>
+
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+
+  // Default to light mode
+  document.body.classList.add("light");
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+  });
+</script>
+
+
 
 </body>
 </html>
