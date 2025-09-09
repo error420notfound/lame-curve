@@ -13,9 +13,35 @@
         
          background-color: "body-dark"; 
         
-        font-size: 16px;
+        font-size: 16px; 
         overflow : visible; 
 }
+
+
+@media (min-width: 600px) {
+  html {
+    font-size: 15px; /* tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px; /* standard desktops / laptops (1920x1080) */
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 18px; /* 2K (1440p) screens */
+  }
+}
+
+@media (min-width: 2560px) {
+  html {
+    font-size: 20px; /* 4K screens */
+  }
+}
+
 
  :root {
       --grid-item-font: 'Aboreto' ; /* default font */
@@ -46,10 +72,12 @@
   border: 2px solid rgba(255, 56, 60, 0.2);
   border-radius: 3rem;
 
+  transform: translateX(-50%); /* <-- centers horizontally */
   position: sticky; 
   bottom: 1rem;
   left: 50%;
-  transform: translateX(-50%); /* <-- centers horizontally */
+  
+  
 
   background: rgba(229, 229, 234, 0.1); 
   backdrop-filter: blur(10px);
@@ -342,9 +370,15 @@ body.dark .grid-item::after {
     font-family: Rajdhani;
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
   color: rgb(255, 56, 60);
+  display: flex;
+  justify-content: space-between; /* puts rem on left, px on right */
+  align-items: center;
+}
 
+.size-label .px-value {
+  color: #2570D4; /* blue for px values */
 }
 
 /* hello text styling */
@@ -427,6 +461,23 @@ body.dark .grid-item::after {
       document.documentElement.style.setProperty('--grid-item-font', this.value);
     });
   </script>
+
+
+  <script>
+function updateFontSizes() {
+  const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+  document.querySelectorAll('.size-label').forEach(label => {
+    const remValue = parseFloat(label.textContent); 
+    const pxValue = (remValue * rootFontSize).toFixed(2) + 'px'; 
+    label.innerHTML = `<span>${remValue}rem</span><span class="px-value">${pxValue}</span>`;
+  });
+}
+
+updateFontSizes();
+window.addEventListener('resize', updateFontSizes);
+
+</script>
 
 </body>
 </html>
