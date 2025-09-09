@@ -10,9 +10,6 @@
 <style>    body, html {
         margin: 0;
         padding: 0;
-        
-         background-color: "body-dark"; 
-        
         font-size: 12px; /* base for mobile (~12px = 1rem) */ 
         overflow : visible; 
 }
@@ -139,199 +136,8 @@ body.dark .grid-item::after {
 }
 
      
-<!-- Font Details-->
-.aboreto-regular {
-  font-family: "Aboreto", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
 
-.geist {
-  font-family: "Geist", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
 
-.geist-mono {
-  font-family: "Geist Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-
-.genos {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-
-.genos {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-
-.orbitron {
-  font-family: "Orbitron", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-.rajdhani-light {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.rajdhani-regular {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.rajdhani-medium {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.rajdhani-semibold {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.rajdhani-bold {
-  font-family: "Rajdhani", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-.spectral-extralight {
-  font-family: "Spectral", serif;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.spectral-light {
-  font-family: "Spectral", serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.spectral-regular {
-  font-family: "Spectral", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.spectral-medium {
-  font-family: "Spectral", serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.spectral-semibold {
-  font-family: "Spectral", serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.spectral-bold {
-  font-family: "Spectral", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.spectral-extrabold {
-  font-family: "Spectral", serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-.spectral-extralight-italic {
-  font-family: "Spectral", serif;
-  font-weight: 200;
-  font-style: italic;
-}
-
-.spectral-light-italic {
-  font-family: "Spectral", serif;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.spectral-regular-italic {
-  font-family: "Spectral", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.spectral-medium-italic {
-  font-family: "Spectral", serif;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.spectral-semibold-italic {
-  font-family: "Spectral", serif;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.spectral-bold-italic {
-  font-family: "Spectral", serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.spectral-extrabold-italic {
-  font-family: "Spectral", serif;
-  font-weight: 800;
-  font-style: italic;
-}
-.michroma-regular {
-  font-family: "Michroma", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-.sarpanch-regular {
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.sarpanch-medium {
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.sarpanch-semibold {
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.sarpanch-bold {
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.sarpanch-extrabold {
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-.sarpanch-black {
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
 
 .grid-container {
   display: grid;
@@ -347,23 +153,24 @@ body.dark .grid-item::after {
   box-sizing: border-box;
 }
 
-
-.grid-item {
-/* height: auto; */
-
+.grid-wraper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* spacing between label and  grid item */
+  background: transparent; /* default is fine, but make it explicit */
 }
 
-.grid-item::after {
-  content: "We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. From the smallest detail to the bigger picture, we design with intention and purpose, ensuring users don’t just see the work but feel the thought, care, and passion behind every element."; /* 👈 this is where you define the text ONCE */
+
+.grid-item {
   display: flex;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background: rgb(242, 242, 247); 
   padding: 1rem 1rem;
   border-radius: 2rem;
   font-family: var(--grid-item-font);
-  /* font-weight: 300, 500; */
 
 }
+
 
 
 .size-label {
@@ -375,28 +182,35 @@ body.dark .grid-item::after {
   display: flex;
   justify-content: space-between; /* puts rem on left, px on right */
   align-items: center;
+  padding: 0 1rem;
 }
 
 .size-label .px-value {
   color: #2570D4; /* blue for px values */
 }
 
+.size-label .style-text {
+  color: #FB932E; /* orange for style text values */
+}
 /* hello text styling */
 
 
 /* Different font sizes for each child */
-.grid-item:nth-child(1) { font-size: 0.75rem;}
-.grid-item:nth-child(2) { font-size: 1rem;}
-.grid-item:nth-child(3) { font-size: 1.125rem; }
-.grid-item:nth-child(4) { font-size: 1.25rem; }
-.grid-item:nth-child(5) { font-size: 1.5rem; }
-.grid-item:nth-child(6) { font-size: 1.75rem; }
-.grid-item:nth-child(7) { font-size: 1.8rem; }
-.grid-item:nth-child(8) { font-size: 2rem; }
-.grid-item:nth-child(9) { font-size: 2.4rem; }
-.grid-item:nth-child(10) { font-size: 2.5rem; }
-.grid-item:nth-child(11) { font-size: 2.75rem; }
-.grid-item:nth-child(12) { font-size: 3rem; }
+.grid-wraper:nth-child(1) .grid-item { font-size: 0.75rem; text-transform: uppercase;}
+.grid-wraper:nth-child(2) .grid-item { font-size: 1rem;}
+.grid-wraper:nth-child(3) .grid-item { font-size: 1.125rem; }
+.grid-wraper:nth-child(4) .grid-item { font-size: 1.25rem; }
+.grid-wraper:nth-child(5) .grid-item { font-size: 1.5rem; }
+.grid-wraper:nth-child(6) .grid-item { font-size: 1.75rem; }
+.grid-wraper:nth-child(7) .grid-item { font-size: 1.8rem; }
+.grid-wraper:nth-child(8) .grid-item { font-size: 2rem; }
+.grid-wraper:nth-child(9) .grid-item { font-size: 2.4rem; }
+.grid-wraper:nth-child(10) .grid-item{ font-size: 2.5rem; }
+.grid-wraper:nth-child(11) .grid-item { font-size: 2.75rem; }
+.grid-wraper:nth-child(12) .grid-item { font-size: 3rem; }
+.grid-wraper:nth-child(13) .grid-item { font-size: 4rem; }
+.grid-wraper:nth-child(14) .grid-item { font-size: 5rem; }
+.grid-wraper:nth-child(15) .grid-item { font-size: 6rem; }
 
 
 </style>
@@ -409,19 +223,54 @@ body.dark .grid-item::after {
 
  
     <div class="grid-container">
-        <div class="grid-item"><div class="size-label">0.75rem</div></div>
-        <div class="grid-item"><div class="size-label">1rem</div></div>
-        <div class="grid-item"><div class="size-label">1.125rem</div></div>
-        <div class="grid-item"><div class="size-label">1.25rem</div></div>
-        <div class="grid-item"><div class="size-label">1.5rem</div></div>
-        <div class="grid-item"><div class="size-label">1.75rem</div></div>
-        <div class="grid-item"><div class="size-label">1.8rem</div></div>
-        <div class="grid-item"><div class="size-label">2rem</div></div>
-        <div class="grid-item"><div class="size-label">2.4rem</div></div>
-        <div class="grid-item"><div class="size-label">2.5rem</div></div>
-        <div class="grid-item"><div class="size-label">2.75rem</div></div>
-        <div class="grid-item"><div class="size-label">3rem</div></div>
-        /\
+
+<div class="grid-wraper"><div class="size-label" data-rem="0.75">0.75rem <div class="style-text">Body</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+<div class="grid-wraper"><div class="size-label" data-rem="1">1rem<div class="style-text">Body</div></div>
+  <div class="grid-item">We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. From the smallest detail to the bigger picture, we design with intention and purpose, ensuring users don’t just see the work but feel the thought, care, and passion behind every element.
+</div></div>
+
+<div class="grid-wraper"><div class="size-label" data-rem="1.125">1.125rem<div class="style-text">Body</div></div>
+  <div class="grid-item">We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. From the smallest detail to the bigger picture, we design with intention and purpose, ensuring users don’t just see the work but feel the thought, care, and passion behind every element.
+</div></div>
+
+<div class="grid-wraper"><div class="size-label" data-rem="1.2">1.2rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. </div></div>
+
+<div class="grid-wraper"><div class="size-label" data-rem="1.5">1.5rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. </div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="1.75">1.75rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft. Every project we take on is more than just work—it’s an opportunity to create something truly meaningful. </div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="1.8">1.8rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">Every project we take on is more than just work—it’s an opportunity to create something truly meaningful.</div></div>
+       
+    <div class="grid-wraper"><div class="size-label" data-rem="2">2rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="2.4">2.4rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="2.5">2.5rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="2.75">2.75rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="3">3rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="4">4rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="5">5rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
+    <div class="grid-wraper"><div class="size-label" data-rem="6">6rem<div class="style-text">Heading</div></div>
+    <div class="grid-item">We designed tools for our craft.</div></div>
+
     </div>
 
   <!-- Dropdown --><div class="menu">
@@ -468,17 +317,26 @@ function updateFontSizes() {
   const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
   document.querySelectorAll('.size-label').forEach(label => {
-    const remValue = parseFloat(label.textContent); 
-    const pxValue = (remValue * rootFontSize).toFixed(2) + 'px'; 
-    label.innerHTML = `<span>${remValue}rem</span><span class="px-value">${pxValue}</span>`;
+    const remValue = parseFloat(label.dataset.rem);
+    const pxValue = (remValue * rootFontSize).toFixed(2) + 'px';
+
+    // get the style-text content (if exists)
+    const styleTextEl = label.querySelector('.style-text');
+    const styleTextHTML = styleTextEl ? styleTextEl.outerHTML : '';
+
+    label.innerHTML = `
+      <span>${remValue}rem</span>
+      ${styleTextHTML}
+      <span class="px-value">${pxValue}</span>
+    `;
   });
 }
 
 updateFontSizes();
 window.addEventListener('resize', updateFontSizes);
-
 </script>
 
 </body>
 </html>
-/
+
+
