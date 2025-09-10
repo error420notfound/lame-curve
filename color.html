@@ -238,7 +238,7 @@ body.dark  .grid-item::after {
   background: linear-gradient(in hwb to bottom, hwb(0 100% 0%), hwb(240 0% 0%));
 }
      .grid-wraper:nth-child(10)  .grid-item {
-  background: rgb(0 0 255 / 1);
+  background:  linear-gradient(to bottom, rgba(0 0 255 / 0), rgba(0 0 255 / 1));
 }
 .grid-wraper:nth-child(11)  .grid-item  {
   background:  linear-gradient(in oklch to bottom, color(display-p3 1 1 1), color(display-p3 0 0 0.959588));
@@ -289,30 +289,30 @@ body.dark  .grid-item::after {
 <body>
 
 <div class="grid-container">
-  <div class="grid-wraper"><div class="color-label"> w/DISPLAY-P3<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in SRGB<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in SRGB LINEAR<div class="color-value">• White ↑ Blue</div>  </div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLAB<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in LCH<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH<div class="color-value">• White ↑ Blue</div>  </div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in LAB<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in HSL<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in HWB<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in RGBA<div class="color-value">Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/DISPLAY-P3)<div class="color-value">• White ↑ Blue</div> </div><div class= "grid-item"></div></div>  
+  <div class="grid-wraper"><div class="color-label"> w/DISPLAY-P3<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in SRGB<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in SRGB LINEAR<div class="color-value">• White ↓ Blue</div>  </div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLAB<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in LCH<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH<div class="color-value">• White ↓ Blue</div>  </div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in LAB<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in HSL<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in HWB<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in RGBA<div class="color-value">• Transparent ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/DISPLAY-P3)<div class="color-value">• White ↓ Blue</div> </div><div class= "grid-item"></div></div>  
   <div class="grid-wraper"><div class="color-label">in OKLCH (w/RGBA)<div class="color-value">Hello</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Blue<div class="color-value">• White ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Green<div class="color-value">• White ↑ Green</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Red<div class="color-value">• White ↑ Red</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Blue<div class="color-value">• Transparent ↑ Blue</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Green<div class="color-value">• Transparent ↑ Green</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Red<div class="color-value">• Transparent ↑ Red</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Blue<div class="color-value">• Transparent ↑ Brand Yellow</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Green<div class="color-value">• Transparent ↑ Brand Orange</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Red<div class="color-value">• Transparent ↑ Brand Violet</div></div><div class= "grid-item"></div></div>
-     <div class="grid-wraper"><div class="color-label">in OKLAB (w/OKLCH) Blue<div class="color-value">• Transparent ↑ Brand Yellow</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLAB (w/OKLCH) Green<div class="color-value">• Transparent ↑ Brand Orange</div></div><div class= "grid-item"></div></div>
-  <div class="grid-wraper"><div class="color-label">in OKLAB (w/OKLCH) Red<div class="color-value">• Transparent ↑ Brand Violet</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Blue<div class="color-value">• White ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Green<div class="color-value">• White ↓ Green</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) W-Red<div class="color-value">• White ↓ Red</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Blue<div class="color-value">• Transparent ↓ Blue</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Green<div class="color-value">• Transparent ↓ Green</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Red<div class="color-value">• Transparent ↓ Red</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Blue<div class="color-value">• Transparent ↓ Brand Yellow</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Green<div class="color-value">• Transparent ↓ Brand Orange</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLCH (w/OKLCH) Red<div class="color-value">• Transparent ↓ Brand Violet</div></div><div class= "grid-item"></div></div>
+     <div class="grid-wraper"><div class="color-label">in OKLAB (w/OKLCH) Blue<div class="color-value">• Transparent ↓ Brand Yellow</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLAB (w/OKLCH) Green<div class="color-value">• Transparent ↓ Brand Orange</div></div><div class= "grid-item"></div></div>
+  <div class="grid-wraper"><div class="color-label">in OKLAB (w/OKLCH) Red<div class="color-value">• Transparent ↓ Brand Violet</div></div><div class= "grid-item"></div></div>
 </div>
 
 
