@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blending Styles</title>
+  
+<link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Genos:ital,wght@0,100..900;1,100..900&family=Instrument+Serif:ital@0;1&family=Michroma&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&family=Sarpanch:wght@400;500;600;700;800;900&family=Abereto:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=contrast" />
+<style>    body, html {
+        margin: 0;
+        padding: 0;
+        font-size: 12px; /* base for mobile (~12px = 1rem) */ 
+        overflow : visible; 
+}
+
+
+@media (min-width: 810px) {
+  html {
+    font-size: 14px; /* tablets */
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px; /* standard desktops / laptops (1920x1080) */
+  }
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: 18px; /* 2K (1440p) screens */
+  }
+}
+
+@media (min-width: 2560px) {
+  html {
+    font-size: 20px; /* 4K screens */
+  }
+}
+
+
+ :root {
+      --grid-item-font: 'Aboreto' ; /* default font */
+    }
+    /* Dropdown styling */
+    .font-selector {
+      margin: 1rem;
+      padding: 0rem 0rem;
+      font-size: 1rem;
+
+    }
+    
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 18
+}
+
+.menu {
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* space between dropdown + button */
+
+  /* padding: 0.5rem 1rem; */
+  border: 2px solid rgba(255, 56, 60, 0.2);
+  border-radius: 3rem;
+
+  transform: translateX(-50%); /* <-- centers horizontally */
+  position: sticky; 
+  bottom: 2rem;
+  left: 50%;
+
+  background: rgba(229, 229, 234, 0.1); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000; 
+}
+
+
+.theme-toggle {
+  margin: 1rem;
+  padding: 0.5rem;
+  border: 0.5px;
+  border-style: solid;
+  border-radius: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.theme-toggle:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+body.dark .theme-toggle:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+body.light .theme-toggle {
+  background: rgb(229, 229, 234);
+  color: rgb(28, 28, 30);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark .theme-toggle {
+  background: rgb(28, 28, 30);
+  color: rgb(242, 242, 247);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: rgb(229, 229, 234);
+  color: rgb(28, 28, 30);
+  transition: background 0.3s, color 0.3s;
+}
+
+     body.light .grid-item {
+  background-color: rgb(242, 242, 247);
+  color: rgb(28, 28, 30);
+  transition: background 0.3s, color 0.3s;
+}
+     
+body.dark {
+  background-color: rgb(28, 28, 30);;
+  color: rgb(229, 229, 234);
+  transition: background 0.3s, color 0.3s;
+}
+
+
+     body.dark .grid-item {
+  background: rgb(44, 44, 46);
+  color: rgb(242, 242, 247);
+  transition: background 0.3s, color 0.3s;
+}
+
+
+     
+
+
+
+.grid-container {
+  display: grid;
+  /* Make columns responsive and not too small on mobile */
+ grid-template-columns: repeat(
+    auto-fit, minmax(clamp(360px, 45vw, 420px), 1fr)); 
+  /* Responsive gutters and container padding */
+  /* grid-template-rows: 1fr; */
+  gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
+  padding: clamp(8px, 2vw, 24px); /* [2] */
+
+  
+  box-sizing: border-box;
+}
+
+.grid-wraper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* spacing between label and  grid item */
+ /* background: transparent; /* default is fine, but make it explicit */
+}
+
+
+.grid-item {
+  display: flex;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*background: rgb(242, 242, 247); */
+  padding: 1rem 1rem;
+  border-radius: 2rem;
+  font-family: var(--grid-item-font);
+
+}
+
+
+
+.blend-label {
+    font-family: Rajdhani;
+  font-size: 1rem;
+  font-weight: 500;
+  /* margin-bottom: 0.5rem; */
+  color: rgb(255, 56, 60);
+  display: flex;
+  justify-content: space-between; /* puts rem on left, px on right */
+  align-items: center;
+  padding: 0 1rem;
+     text-align: left;
+}
+
+.blend-label .blend-value {
+  color: #2570D4; /* blue for px values */
+     text-align: right;
+}
+
+.blend-label .style-text {
+  color: #FB932E; /* orange for style text values */
+     text-align: center;
+}
+    .container {
+      width: 320px;
+      height: 320px;
+      position: relative;
+    }
+
+    .rectangle {
+      width: 200px;
+      height: 200px;
+      background: #2979ff; /* blue */
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .circle {
+      width: 200px;
+      height: 200px;
+      background: #f44336; /* red */
+      border-radius: 50%;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    /* scope container + shapes to only the 1st grid item */
+    .grid-wraper .grid-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      border-radius: 1rem;
+    }
+
+    .grid-wraper:nth-child(1) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(1) .grid-item .circle {mix-blend-mode: normal; }/* overlay normal only in first grid */
+    
+    .grid-wraper:nth-child(2) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(2) .grid-item .circle {mix-blend-mode: multiply;} /* overlay blending only in first grid */
+
+    .grid-wraper:nth-child(3) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(3) .grid-item .circle {mix-blend-mode: screen;}
+    
+        .grid-wraper:nth-child(4) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(4) .grid-item .circle {mix-blend-mode: overlay;}
+
+        .grid-wraper:nth-child(5) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(5) .grid-item .circle {mix-blend-mode: darken;}
+
+        .grid-wraper:nth-child(6) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(6) .grid-item .circle {mix-blend-mode: lighten;}
+
+        .grid-wraper:nth-child(7) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(7) .grid-item .circle {mix-blend-mode: color-dodge;}
+
+        .grid-wraper:nth-child(8) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(8) .grid-item .circle {mix-blend-mode: color-burn;}
+
+        .grid-wraper:nth-child(9) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(9) .grid-item .circle {mix-blend-mode: difference;}
+
+        .grid-wraper:nth-child(10) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(10) .grid-item .circle {mix-blend-mode: exclusion;}
+
+        .grid-wraper:nth-child(11) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(11) .grid-item .circle {mix-blend-mode: hue;}
+
+        .grid-wraper:nth-child(12) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(12) .grid-item .circle {mix-blend-mode: saturation;}
+
+        .grid-wraper:nth-child(13) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(13) .grid-item .circle {mix-blend-mode: color;}
+
+        .grid-wraper:nth-child(14) .grid-item .container {position: relative;}
+    .grid-wraper:nth-child(14) .grid-item .circle {mix-blend-mode: luminosity;}
+  </style>
+
+  </style>
+</head>
+<body>
+<div class="grid-container">
+    <div class="grid-wra.htmlper"><div class="blend-label">Normal<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>
+
+<div class="grid-wraper"><div class="blend-label">Multiply<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+  
+  <div class="grid-wraper"><div class="blend-label">Screen<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Overlay<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+  
+        <div class="grid-wraper"><div class="blend-label">Darken<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+  <div class="grid-wraper"><div class="blend-label">Lighten<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+      
+        <div class="grid-wraper"><div class="blend-label">Color-Dodge<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Color-Burn<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Difference<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Exclusion<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Hue<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Saturation<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">Color<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+        <div class="grid-wraper"><div class="blend-label">luminosity<div class="blend-value">on Circle</div></div>
+      <div class="grid-item"><div class="container"><div class="rectangle"></div><div class="circle"></div></div></div></div>    
+
+
+    </div>
+
+
+
+  <div class="menu">
+<button class="theme-toggle" id="themeToggle">
+  <span class="material-symbols-outlined">contrast</span>
+</button></div>
+
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+
+  // Default to light mode
+  document.body.classList.add("light");
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+  });
+</script>
+
+
+</body>
+</html>
