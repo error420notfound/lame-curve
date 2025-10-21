@@ -133,21 +133,21 @@ body.light .grid-item {
 }     
 
 body.dark {
-  background-color: rgb(28, 28, 30);;
+  background-color: rgb(0, 0, 0);
   color: rgb(229, 229, 234);
   transition: background 0.3s, color 0.3s;
 }
 
 body.dark  .grid-item {
-  background: rgb(44, 44, 46);
+  background: rgb(28, 28, 30);
   color: rgb(242, 242, 247);
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.2s, color 0.3s;
 }
      
 body.dark  .grid-item::after {
-  background: rgb(44, 44, 46);
+  background: rgb(28, 28, 30);
   color: rgb(242, 242, 247);
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.2s, color 0.3s;
 }
 
 
@@ -163,7 +163,6 @@ body.dark  .grid-item::after {
   gap: clamp(12px, 2.5vw, 24px); /* [2][8] */
   padding: clamp(12px, 3vw, 24px); /* [2] */
   /* height fix */
-  
   width: 100%;
   box-sizing: border-box;
 }
@@ -195,7 +194,7 @@ body.dark  .grid-item::after {
   min-height: 30vh;
   width: 100%;              /* 👈 ensure it doesn’t collapse or spill oddly */
   padding: clamp(16px, 3vw, 24px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19);
+  /* box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19); */
   border-radius: 2rem;
   box-sizing: border-box;   /* padding stays inside */
 }
