@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   :root {
     --lime: #c8f135;
     --ink: #0f0f0f;
@@ -16,9 +16,9 @@
     --sky: #7dd3fc;
     --purple: #c084fc;
   }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     font-family: 'Syne', sans-serif;
     background: var(--cream);
@@ -26,7 +26,7 @@
     cursor: none;
     overflow-x: hidden;
   }
-
+ 
   /* CURSOR */
   #cursor {
     width: 18px; height: 18px;
@@ -39,14 +39,18 @@
     mix-blend-mode: multiply;
   }
   #cursor.big { transform: scale(3.5); background: var(--lime); }
-
+ 
   /* NAV */
   nav {
-    position: fixed; top: 0; left: 0; right: 0;
+    position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%);
     z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.25rem 2.5rem;
+    display: flex; justify-content: center; align-items: center; gap: 3rem;
+    padding: 1rem 2.5rem;
+    background: var(--cream);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
     mix-blend-mode: multiply;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   }
   .nav-logo {
     font-family: 'Syne Mono', monospace;
@@ -72,7 +76,7 @@
     transition: width 0.25s ease;
   }
   .nav-links a:hover::after { width: 100%; }
-
+ 
   /* HERO */
   #hero {
     min-height: 100vh;
@@ -81,7 +85,7 @@
     padding: 0 2.5rem 3.5rem;
     position: relative; overflow: hidden;
   }
-
+ 
   .blob-bg {
     position: absolute; inset: 0;
     pointer-events: none; z-index: 0;
@@ -96,14 +100,14 @@
   .blob-1 { width: 480px; height: 480px; background: var(--lime); top: -80px; right: -60px; animation-duration: 14s; }
   .blob-2 { width: 320px; height: 320px; background: var(--sky); top: 40%; left: -100px; animation-duration: 18s; animation-direction: reverse; }
   .blob-3 { width: 260px; height: 260px; background: var(--purple); bottom: 10%; right: 20%; animation-duration: 11s; }
-
+ 
   @keyframes float {
     0%   { transform: translate(0, 0) scale(1); }
     33%  { transform: translate(30px, -40px) scale(1.05); }
     66%  { transform: translate(-20px, 25px) scale(0.97); }
     100% { transform: translate(0, 0) scale(1); }
   }
-
+ 
   .hero-tag {
     font-family: 'Syne Mono', monospace;
     font-size: 12px;
@@ -115,7 +119,7 @@
     opacity: 0; transform: translateY(12px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
-
+ 
   .hero-headline {
     font-size: clamp(64px, 12vw, 160px);
     font-weight: 800;
@@ -137,7 +141,7 @@
     padding: 0 0.35em;
     vertical-align: baseline;
   }
-
+ 
   .hero-sub {
     margin-top: 2.5rem;
     display: flex; align-items: center; gap: 2rem;
@@ -159,7 +163,7 @@
   .cta-btn:hover { background: var(--coral); transform: scale(1.05) rotate(-1deg); }
   .cta-btn .arrow { transition: transform 0.2s ease; }
   .cta-btn:hover .arrow { transform: translate(4px, -4px); }
-
+ 
   .scroll-hint {
     position: absolute; bottom: 2.5rem; right: 2.5rem;
     font-family: 'Syne Mono', monospace; font-size: 11px;
@@ -169,7 +173,7 @@
     z-index: 1;
   }
   @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-
+ 
   /* TICKER */
   .ticker-wrap {
     background: var(--ink); color: var(--lime);
@@ -182,7 +186,7 @@
   .ticker-item { padding: 0 3rem; }
   .ticker-dot { color: var(--coral); }
   @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
+ 
   /* LAYERED SCROLL */
   #layered-scroll {
     height: 200vh;
@@ -239,7 +243,7 @@
     font-size: 15px; color: var(--cream); opacity: 0.75;
     font-family: 'Syne Mono', monospace; letter-spacing: 0.05em;
   }
-
+ 
   /* CARDS SECTION */
   #cards {
     padding: 8rem 2.5rem;
@@ -284,7 +288,7 @@
     transition: transform 0.4s ease, opacity 0.4s ease;
   }
   .card:hover .card-deco { transform: scale(1.5); opacity: 0.25; }
-
+ 
   /* MARQUEE SECTION */
   .big-marquee {
     overflow: hidden;
@@ -301,7 +305,7 @@
   .big-marquee-inner span { opacity: 0.12; }
   .big-marquee-inner span.hi { opacity: 1; color: var(--coral); }
   @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
+ 
   /* FUN SECTION */
   #fun {
     padding: 8rem 2.5rem;
@@ -315,7 +319,7 @@
   }
   .fun-left p { font-size: 15px; line-height: 1.7; opacity: 0.55; max-width: 380px; }
   .fun-right { flex: 1; display: flex; justify-content: center; }
-
+ 
   /* SMILEY */
   .smiley-wrap {
     width: 280px; height: 280px;
@@ -332,7 +336,7 @@
   .smiley:hover { transform: scale(1.08) rotate(10deg); }
   .smiley-face { font-size: 100px; line-height: 1; user-select: none; transition: all 0.2s ease; }
   .smiley:hover .smiley-face { font-size: 110px; }
-
+ 
   /* STICKERS */
   .sticker {
     position: absolute;
@@ -351,7 +355,7 @@
     0%, 100% { transform: rotate(-3deg) scale(1); }
     50% { transform: rotate(3deg) scale(1.05); }
   }
-
+ 
   /* FOOTER */
   footer {
     background: var(--ink); color: var(--cream);
@@ -370,28 +374,35 @@
     font-size: 12px; letter-spacing: 0.08em; opacity: 0.35;
     text-align: right; line-height: 2;
   }
-
+ 
   /* APPEAR ON SCROLL */
   .reveal {
     opacity: 0; transform: translateY(30px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-
+ 
   @media (max-width: 768px) {
+    nav {
+      top: auto; bottom: 1.25rem; transform: translateX(-50%);
+      padding: 0.75rem 1.5rem;
+      gap: 1.5rem;
+    }
+    .nav-logo { display: none; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 12px; }
     .cards-grid { grid-template-columns: 1fr; }
     #fun { flex-direction: column; }
     footer { flex-direction: column; gap: 2rem; }
     .footer-right { text-align: left; }
-    nav { padding: 1rem 1.25rem; }
     #hero { padding: 0 1.25rem 3rem; }
   }
 </style>
 </head>
 <body>
-
+ 
 <div id="cursor"></div>
-
+ 
 <nav>
   <span class="nav-logo">demo.page</span>
   <div class="nav-links">
@@ -400,7 +411,7 @@
     <a href="mailto:hi@demo.page">say hi</a>
   </div>
 </nav>
-
+ 
 <!-- HERO -->
 <section id="hero">
   <div class="blob-bg">
@@ -408,29 +419,29 @@
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
   </div>
-
+ 
   <p class="hero-tag" id="heroTag">✦ a little experiment in motion</p>
-
+ 
   <h1 class="hero-headline">
     <span class="word">make&nbsp;</span><span class="word accent">things&nbsp;</span><br>
     <span class="word">that&nbsp;</span><span class="word"><span class="pill">feel</span>&nbsp;</span><span class="word accent">alive.</span>
   </h1>
-
+ 
   <div class="hero-sub" id="heroSub">
     <p>Just a demo. A little playground for type, colour, and things that move in ways that make you smile.</p>
     <a href="#cards" class="cta-btn">
       explore it <span class="arrow">↗</span>
     </a>
   </div>
-
+ 
   <span class="scroll-hint">scroll down</span>
 </section>
-
+ 
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner" id="ticker"></div>
 </div>
-
+ 
 <!-- LAYERED SCROLL -->
 <div id="layered-scroll">
   <div class="layer-sticky">
@@ -443,7 +454,7 @@
     <p>the overlay. semi-transparent. sliding right over.</p>
   </div>
 </div>
-
+ 
 <!-- CARDS -->
 <section id="cards">
   <p class="section-label reveal">the good stuff</p>
@@ -465,12 +476,12 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- BIG MARQUEE -->
 <div class="big-marquee">
   <div class="big-marquee-inner" id="bigMarquee"></div>
 </div>
-
+ 
 <!-- FUN SECTION -->
 <section id="fun">
   <div class="fun-left reveal">
@@ -488,7 +499,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
   <p class="footer-big"><span class="fill">see</span><br>you<br>around</p>
@@ -498,7 +509,7 @@
     © 2025
   </div>
 </footer>
-
+ 
 <script>
   // CURSOR
   const cursor = document.getElementById('cursor');
@@ -514,27 +525,27 @@
     el.addEventListener('mouseenter', () => cursor.classList.add('big'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
   });
-
+ 
   // HERO ENTRANCE
   window.addEventListener('load', () => {
     const tag = document.getElementById('heroTag');
     const words = document.querySelectorAll('.hero-headline .word');
     const sub = document.getElementById('heroSub');
-
+ 
     setTimeout(() => { tag.style.opacity = '0.5'; tag.style.transform = 'translateY(0)'; }, 200);
     words.forEach((w, i) => {
       setTimeout(() => { w.style.opacity = '1'; w.style.transform = 'translateY(0)'; }, 400 + i * 110);
     });
     setTimeout(() => { sub.style.opacity = '1'; sub.style.transform = 'translateY(0)'; }, 1000);
   });
-
+ 
   // TICKER BUILD
   const tickerWords = ['✦ type', '✦ colour', '✦ motion', '✦ texture', '✦ delight', '✦ play', '✦ scroll', '✦ hover'];
   const ticker = document.getElementById('ticker');
   const tickerHTML = [...tickerWords, ...tickerWords].map((w, i) =>
     `<span class="ticker-item">${w}</span>`).join('');
   ticker.innerHTML = tickerHTML + tickerHTML;
-
+ 
   // BIG MARQUEE BUILD
   const marqueeWords = ['MAKE', 'PLAY', 'BUILD', 'SHIP', 'REPEAT'];
   const bm = document.getElementById('bigMarquee');
@@ -543,14 +554,14 @@
     return `<span ${isHi ? 'class="hi"' : ''}>${w}</span>`;
   }).join('');
   bm.innerHTML = bmHTML;
-
+ 
   // SCROLL REVEAL
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
   reveals.forEach(el => observer.observe(el));
-
+ 
   // SMILEY
   const faces = ['😶', '🙂', '😊', '😄', '🤩', '😍'];
   const smiley = document.getElementById('smiley');
@@ -563,7 +574,7 @@
   smiley.addEventListener('mouseleave', () => {
     setTimeout(() => { face.textContent = '🙂'; faceIdx = 1; }, 800);
   });
-
+ 
   // TILT ON HERO
   const hero = document.getElementById('hero');
   hero.addEventListener('mousemove', e => {
