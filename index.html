@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hello!</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --lime: #c8f135;
+    --ink: #0f0f0f;
+    --cream: #f5f0e8;
+    --coral: #ff5c3a;
+    --sky: #7dd3fc;
+    --purple: #c084fc;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* CURSOR */
+  #cursor {
+    width: 18px; height: 18px;
+    background: var(--coral);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s ease;
+    mix-blend-mode: multiply;
+  }
+  #cursor.big { transform: scale(3.5); background: var(--lime); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 2.5rem;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Syne Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-size: 13px; letter-spacing: 0.06em;
+    text-decoration: none; color: var(--ink);
+    font-weight: 700; text-transform: lowercase;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -2px; left: 0;
+    height: 2px; width: 0;
+    background: var(--coral);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 2.5rem 3.5rem;
+    position: relative; overflow: hidden;
+  }
+
+  .blob-bg {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 0;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.55;
+    animation: float linear infinite;
+  }
+  .blob-1 { width: 480px; height: 480px; background: var(--lime); top: -80px; right: -60px; animation-duration: 14s; }
+  .blob-2 { width: 320px; height: 320px; background: var(--sky); top: 40%; left: -100px; animation-duration: 18s; animation-direction: reverse; }
+  .blob-3 { width: 260px; height: 260px; background: var(--purple); bottom: 10%; right: 20%; animation-duration: 11s; }
+
+  @keyframes float {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(30px, -40px) scale(1.05); }
+    66%  { transform: translate(-20px, 25px) scale(0.97); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .hero-tag {
+    font-family: 'Syne Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .hero-headline {
+    font-size: clamp(64px, 12vw, 160px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    position: relative; z-index: 1;
+    overflow: hidden;
+  }
+  .hero-headline .word {
+    display: inline-block;
+    opacity: 0; transform: translateY(100%);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-headline .accent { color: var(--coral); }
+  .hero-headline .pill {
+    display: inline-flex; align-items: center;
+    background: var(--lime);
+    border-radius: 999px;
+    padding: 0 0.35em;
+    vertical-align: baseline;
+  }
+
+  .hero-sub {
+    margin-top: 2.5rem;
+    display: flex; align-items: center; gap: 2rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s;
+  }
+  .hero-sub p { font-size: 15px; max-width: 320px; line-height: 1.6; opacity: 0.6; }
+  .cta-btn {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink); color: var(--cream);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
+    padding: 14px 24px; border-radius: 999px;
+    text-decoration: none; border: none; cursor: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+  .cta-btn:hover { background: var(--coral); transform: scale(1.05) rotate(-1deg); }
+  .cta-btn .arrow { transition: transform 0.2s ease; }
+  .cta-btn:hover .arrow { transform: translate(4px, -4px); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; right: 2.5rem;
+    font-family: 'Syne Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; opacity: 0.35;
+    writing-mode: vertical-rl;
+    animation: nudge 2s ease-in-out infinite;
+    z-index: 1;
+  }
+  @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--ink); color: var(--lime);
+    padding: 14px 0; overflow: hidden;
+    font-family: 'Syne Mono', monospace;
+    font-size: 13px; letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .ticker-inner { display: inline-flex; animation: ticker 22s linear infinite; }
+  .ticker-item { padding: 0 3rem; }
+  .ticker-dot { color: var(--coral); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* LAYERED SCROLL */
+  #layered-scroll {
+    height: 200vh;
+    position: relative;
+  }
+  .layer-sticky {
+    position: sticky; top: 0;
+    height: 100vh;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1.5rem;
+    z-index: 1; overflow: hidden;
+  }
+  .layer-sticky-bg {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(200, 241, 53, 0.04) 40px,
+      rgba(200, 241, 53, 0.04) 41px
+    );
+  }
+  .layer-sticky h2 {
+    font-size: clamp(40px, 8vw, 110px);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
+    color: var(--cream); text-align: center; position: relative; z-index: 1;
+  }
+  .layer-sticky h2 em { font-style: normal; color: var(--lime); }
+  .layer-sticky-hint {
+    font-family: 'Syne Mono', monospace; font-size: 12px;
+    letter-spacing: 0.1em; color: var(--cream); opacity: 0.3;
+    position: relative; z-index: 1;
+    animation: nudge 2s ease-in-out infinite;
+  }
+  .layer-overlay {
+    position: relative;
+    height: 100vh;
+    background: rgba(255, 92, 58, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 2;
+  }
+  .layer-overlay h2 {
+    font-size: clamp(40px, 8vw, 110px);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
+    color: var(--cream); text-align: center;
+  }
+  .layer-overlay h2 em { font-style: normal; color: var(--lime); }
+  .layer-overlay p {
+    font-size: 15px; color: var(--cream); opacity: 0.75;
+    font-family: 'Syne Mono', monospace; letter-spacing: 0.05em;
+  }
+
+  /* CARDS SECTION */
+  #cards {
+    padding: 8rem 2.5rem;
+    position: relative;
+  }
+  .section-label {
+    font-family: 'Syne Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; opacity: 0.4; text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .card {
+    border-radius: 20px;
+    padding: 2rem;
+    min-height: 260px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+    cursor: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .card:hover { transform: translateY(-8px) rotate(-1deg); }
+  .card:nth-child(2):hover { transform: translateY(-8px) rotate(1deg); }
+  .card-1 { background: var(--ink); color: var(--cream); }
+  .card-2 { background: var(--lime); color: var(--ink); }
+  .card-3 { background: var(--coral); color: var(--cream); }
+  .card-num {
+    font-family: 'Syne Mono', monospace;
+    font-size: 11px; opacity: 0.4; letter-spacing: 0.1em;
+  }
+  .card-title {
+    font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+  }
+  .card-deco {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 2px solid currentColor; opacity: 0.15;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  .card:hover .card-deco { transform: scale(1.5); opacity: 0.25; }
+
+  /* MARQUEE SECTION */
+  .big-marquee {
+    overflow: hidden;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  .big-marquee-inner {
+    display: inline-flex; gap: 2.5rem;
+    font-size: clamp(48px, 9vw, 100px);
+    font-weight: 800; letter-spacing: -0.03em; white-space: nowrap;
+    animation: marquee 16s linear infinite;
+  }
+  .big-marquee-inner span { opacity: 0.12; }
+  .big-marquee-inner span.hi { opacity: 1; color: var(--coral); }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* FUN SECTION */
+  #fun {
+    padding: 8rem 2.5rem;
+    display: flex; gap: 4rem; align-items: center;
+  }
+  .fun-left { flex: 1; }
+  .fun-left h2 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .fun-left p { font-size: 15px; line-height: 1.7; opacity: 0.55; max-width: 380px; }
+  .fun-right { flex: 1; display: flex; justify-content: center; }
+
+  /* SMILEY */
+  .smiley-wrap {
+    width: 280px; height: 280px;
+    position: relative; cursor: none;
+  }
+  .smiley {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: var(--lime);
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .smiley:hover { transform: scale(1.08) rotate(10deg); }
+  .smiley-face { font-size: 100px; line-height: 1; user-select: none; transition: all 0.2s ease; }
+  .smiley:hover .smiley-face { font-size: 110px; }
+
+  /* STICKERS */
+  .sticker {
+    position: absolute;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 13px;
+    letter-spacing: 0.04em;
+    background: var(--ink); color: var(--cream);
+    padding: 8px 14px; border-radius: 999px;
+    animation: wobble 3s ease-in-out infinite;
+    cursor: none;
+  }
+  .sticker-1 { top: -10px; right: -20px; background: var(--coral); animation-delay: 0s; }
+  .sticker-2 { bottom: 20px; left: -30px; animation-delay: 1s; }
+  .sticker-3 { bottom: -10px; right: 10px; background: var(--purple); color: var(--cream); animation-delay: 0.5s; }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-3deg) scale(1); }
+    50% { transform: rotate(3deg) scale(1.05); }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: var(--cream);
+    padding: 4rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .footer-big {
+    font-size: clamp(48px, 9vw, 110px);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
+  }
+  .footer-big .fill { -webkit-text-stroke: none; color: var(--lime); }
+  .footer-right {
+    font-family: 'Syne Mono', monospace;
+    font-size: 12px; letter-spacing: 0.08em; opacity: 0.35;
+    text-align: right; line-height: 2;
+  }
+
+  /* APPEAR ON SCROLL */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    #fun { flex-direction: column; }
+    footer { flex-direction: column; gap: 2rem; }
+    .footer-right { text-align: left; }
+    nav { padding: 1rem 1.25rem; }
+    #hero { padding: 0 1.25rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<nav>
+  <span class="nav-logo">demo.page</span>
+  <div class="nav-links">
+    <a href="#cards">work</a>
+    <a href="#fun">vibes</a>
+    <a href="mailto:hi@demo.page">say hi</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <p class="hero-tag" id="heroTag">✦ a little experiment in motion</p>
+
+  <h1 class="hero-headline">
+    <span class="word">make&nbsp;</span><span class="word accent">things&nbsp;</span><br>
+    <span class="word">that&nbsp;</span><span class="word"><span class="pill">feel</span>&nbsp;</span><span class="word accent">alive.</span>
+  </h1>
+
+  <div class="hero-sub" id="heroSub">
+    <p>Just a demo. A little playground for type, colour, and things that move in ways that make you smile.</p>
+    <a href="#cards" class="cta-btn">
+      explore it <span class="arrow">↗</span>
+    </a>
+  </div>
+
+  <span class="scroll-hint">scroll down</span>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- LAYERED SCROLL -->
+<div id="layered-scroll">
+  <div class="layer-sticky">
+    <div class="layer-sticky-bg"></div>
+    <h2>keep<br>scrolling<br><em>trust us.</em></h2>
+    <span class="layer-sticky-hint">↓ something's coming</span>
+  </div>
+  <div class="layer-overlay">
+    <h2>there<br>it <em>is.</em></h2>
+    <p>the overlay. semi-transparent. sliding right over.</p>
+  </div>
+</div>
+
+<!-- CARDS -->
+<section id="cards">
+  <p class="section-label reveal">the good stuff</p>
+  <div class="cards-grid">
+    <div class="card card-1 reveal">
+      <span class="card-num">01 / type</span>
+      <p class="card-title">Letters that dance when you look at them</p>
+      <div class="card-deco"></div>
+    </div>
+    <div class="card card-2 reveal" style="transition-delay: 0.1s">
+      <span class="card-num">02 / motion</span>
+      <p class="card-title">Motion that has a reason to exist</p>
+      <div class="card-deco"></div>
+    </div>
+    <div class="card card-3 reveal" style="transition-delay: 0.2s">
+      <span class="card-num">03 / colour</span>
+      <p class="card-title">Colour used like it means something</p>
+      <div class="card-deco"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG MARQUEE -->
+<div class="big-marquee">
+  <div class="big-marquee-inner" id="bigMarquee"></div>
+</div>
+
+<!-- FUN SECTION -->
+<section id="fun">
+  <div class="fun-left reveal">
+    <h2>built for the joy of building.</h2>
+    <p>No agenda. No conversion funnel. Just a space to try things — hover everything, scroll around, see what happens.</p>
+  </div>
+  <div class="fun-right reveal" style="transition-delay: 0.15s">
+    <div class="smiley-wrap">
+      <div class="smiley" id="smiley">
+        <span class="smiley-face" id="smileyFace">🙂</span>
+      </div>
+      <span class="sticker sticker-1">hover me!</span>
+      <span class="sticker sticker-2">no way</span>
+      <span class="sticker sticker-3">so fun</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-big"><span class="fill">see</span><br>you<br>around</p>
+  <div class="footer-right">
+    made with curiosity<br>
+    and too much coffee<br>
+    © 2025
+  </div>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  let mx = -100, my = -100, cx = -100, cy = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  ;(function animCursor() {
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    cursor.style.transform = `translate(${cx - 9}px, ${cy - 9}px)`;
+    requestAnimationFrame(animCursor);
+  })();
+  document.querySelectorAll('a, button, .card, .smiley, .cta-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+
+  // HERO ENTRANCE
+  window.addEventListener('load', () => {
+    const tag = document.getElementById('heroTag');
+    const words = document.querySelectorAll('.hero-headline .word');
+    const sub = document.getElementById('heroSub');
+
+    setTimeout(() => { tag.style.opacity = '0.5'; tag.style.transform = 'translateY(0)'; }, 200);
+    words.forEach((w, i) => {
+      setTimeout(() => { w.style.opacity = '1'; w.style.transform = 'translateY(0)'; }, 400 + i * 110);
+    });
+    setTimeout(() => { sub.style.opacity = '1'; sub.style.transform = 'translateY(0)'; }, 1000);
+  });
+
+  // TICKER BUILD
+  const tickerWords = ['✦ type', '✦ colour', '✦ motion', '✦ texture', '✦ delight', '✦ play', '✦ scroll', '✦ hover'];
+  const ticker = document.getElementById('ticker');
+  const tickerHTML = [...tickerWords, ...tickerWords].map((w, i) =>
+    `<span class="ticker-item">${w}</span>`).join('');
+  ticker.innerHTML = tickerHTML + tickerHTML;
+
+  // BIG MARQUEE BUILD
+  const marqueeWords = ['MAKE', 'PLAY', 'BUILD', 'SHIP', 'REPEAT'];
+  const bm = document.getElementById('bigMarquee');
+  const bmHTML = [...marqueeWords, ...marqueeWords, ...marqueeWords, ...marqueeWords].map((w, i) => {
+    const isHi = i % marqueeWords.length === 0;
+    return `<span ${isHi ? 'class="hi"' : ''}>${w}</span>`;
+  }).join('');
+  bm.innerHTML = bmHTML;
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  // SMILEY
+  const faces = ['😶', '🙂', '😊', '😄', '🤩', '😍'];
+  const smiley = document.getElementById('smiley');
+  const face = document.getElementById('smileyFace');
+  let faceIdx = 1;
+  smiley.addEventListener('mouseenter', () => {
+    faceIdx = (faceIdx + 1) % faces.length;
+    face.textContent = faces[faceIdx];
+  });
+  smiley.addEventListener('mouseleave', () => {
+    setTimeout(() => { face.textContent = '🙂'; faceIdx = 1; }, 800);
+  });
+
+  // TILT ON HERO
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mousemove', e => {
+    const { left, top, width, height } = hero.getBoundingClientRect();
+    const x = (e.clientX - left) / width - 0.5;
+    const y = (e.clientY - top) / height - 0.5;
+    document.querySelector('.blob-1').style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+    document.querySelector('.blob-2').style.transform = `translate(${-x * 20}px, ${-y * 20}px)`;
+    document.querySelector('.blob-3').style.transform = `translate(${x * 15}px, ${-y * 25}px)`;
+  });
+</script>
+</body>
+</html>
