@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Progressive Blur Playground</title>
+  <style>
+    :root {
+      --hue: 343;
+      --page-base: hsl(var(--hue) 72% 76%);
+      --page-deep: hsl(calc(var(--hue) + 28) 72% 57%);
+      --page-shadow: hsl(calc(var(--hue) - 25) 62% 42%);
+      --ink: #271e28;
+      --muted: rgba(39, 30, 40, .68);
+      --line: rgba(39, 30, 40, .18);
+      --surface: rgba(255, 255, 255, .74);
+      --surface-strong: rgba(255, 255, 255, .88);
+      --blur-fill: rgba(255, 255, 255, .20);
+      --blur-line: rgba(255, 255, 255, .42);
+      --button-ink: #201923;
+      --content-z: 12;
+      --ease: cubic-bezier(.2, .75, .25, 1);
+    }
+
+    [data-theme="dark"] {
+      --page-base: hsl(var(--hue) 68% 14%);
+      --page-deep: hsl(calc(var(--hue) + 28) 75% 24%);
+      --page-shadow: hsl(calc(var(--hue) - 25) 68% 9%);
+      --ink: #f8f1f6;
+      --muted: rgba(248, 241, 246, .68);
+      --line: rgba(248, 241, 246, .18);
+      --surface: rgba(25, 21, 28, .70);
+      --surface-strong: rgba(28, 23, 31, .90);
+      --blur-fill: rgba(0, 0, 0, .16);
+      --blur-line: rgba(255, 255, 255, .18);
+      --button-ink: #f8f1f6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--page-base);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+      background: var(--page-base);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: background .35s ease, color .35s ease;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .page-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(255,255,255,.34), transparent 25rem),
+        radial-gradient(circle at 88% 78%, rgba(255,255,255,.18), transparent 28rem),
+        linear-gradient(135deg, var(--page-base), var(--page-deep) 54%, var(--page-shadow));
+      transition: background .35s ease;
+    }
+
+    [data-theme="dark"] .page-backdrop {
+      background:
+        radial-gradient(circle at 15% 12%, rgba(255,255,255,.12), transparent 25rem),
+        radial-gradient(circle at 88% 78%, rgba(255,255,255,.06), transparent 28rem),
+        linear-gradient(135deg, var(--page-base), var(--page-deep) 54%, var(--page-shadow));
+    }
+
+    .page-backdrop::before,
+    .page-backdrop::after {
+      content: "";
+      position: absolute;
+      width: 32rem;
+      height: 32rem;
+      border-radius: 45% 55% 60% 40%;
+      filter: blur(2px);
+      opacity: .55;
+      background: hsl(calc(var(--hue) + 52) 84% 67% / .62);
+      transform: rotate(23deg);
+    }
+
+    .page-backdrop::before {
+      top: 18%;
+      left: -12rem;
+    }
+
+    .page-backdrop::after {
+      right: -13rem;
+      bottom: 8%;
+      background: hsl(calc(var(--hue) - 36) 78% 47% / .55);
+      transform: rotate(-31deg);
+    }
+
+    [data-theme="dark"] .page-backdrop::before,
+    [data-theme="dark"] .page-backdrop::after {
+      opacity: .34;
+    }
+
+    .content-layer {
+      position: relative;
+      z-index: var(--content-z);
+      min-height: 100vh;
+    }
+
+    .site-header {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 8px;
+      font-size: 10px;
+      letter-spacing: -.08em;
+    }
+
+    .top-note {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: clamp(74px, 13vw, 170px) 0 clamp(80px, 12vw, 150px);
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(56px, 11vw, 146px);
+      line-height: .86;
+      letter-spacing: -.085em;
+      font-weight: 780;
+    }
+
+    .hero p {
+      max-width: 520px;
+      margin: 36px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.42;
+      letter-spacing: -.025em;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 32px;
+    }
+
+    .meta-chip,
+    .layer-state {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .article {
+      width: min(840px, calc(100% - 40px));
+      margin: 0 auto;
+      padding-bottom: 180px;
+    }
+
+    .article-section {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 30px;
+      padding: 54px 0 80px;
+      border-top: 1px solid var(--line);
+    }
+
+    .article-section:first-child {
+      border-top: 0;
+    }
+
+    .section-number {
+      color: var(--muted);
+      padding-top: 7px;
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .article h2 {
+      margin: 0 0 22px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: .96;
+      letter-spacing: -.065em;
+      font-weight: 730;
+    }
+
+    .article p {
+      margin: 0 0 22px;
+      max-width: 650px;
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.52;
+      letter-spacing: -.025em;
+    }
+
+    .article p:last-child {
+      margin-bottom: 0;
+    }
+
+    .quote {
+      margin: 34px 0 0;
+      padding: 24px 0 24px 24px;
+      border-left: 2px solid currentColor;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .swatch-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 35px;
+    }
+
+    .swatch {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: hsl(calc(var(--hue) - 30) 75% 62%);
+    }
+
+    .swatch:nth-child(2) {
+      background: hsl(var(--hue) 80% 72%);
+    }
+
+    .swatch:nth-child(3) {
+      background: hsl(calc(var(--hue) + 36) 74% 59%);
+    }
+
+    .swatch:nth-child(4) {
+      background: hsl(calc(var(--hue) + 80) 68% 70%);
+    }
+
+    .blur-stack {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      isolation: isolate;
+    }
+
+    .blur-layer {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      background: var(--blur-fill);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      -webkit-mask-image: linear-gradient(to bottom, transparent var(--from), #000 var(--to));
+      mask-image: linear-gradient(to bottom, transparent var(--from), #000 var(--to));
+      transition: background .35s ease;
+    }
+
+    .blur-layer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-top: 1px solid var(--blur-line);
+      opacity: .20;
+    }
+
+    .blur-layer:nth-child(1) {
+      --blur: 0px;
+      --from: 0%;
+      --to: 20%;
+    }
+
+    .blur-layer:nth-child(2) {
+      --blur: .25px;
+      --from: 10%;
+      --to: 30%;
+    }
+
+    .blur-layer:nth-child(3) {
+      --blur: .9px;
+      --from: 20%;
+      --to: 40%;
+    }
+
+    .blur-layer:nth-child(4) {
+      --blur: 2px;
+      --from: 30%;
+      --to: 50%;
+    }
+
+    .blur-layer:nth-child(5) {
+      --blur: 3.6px;
+      --from: 40%;
+      --to: 60%;
+    }
+
+    .blur-layer:nth-child(6) {
+      --blur: 5.5px;
+      --from: 50%;
+      --to: 70%;
+    }
+
+    .blur-layer:nth-child(7) {
+      --blur: 7.8px;
+      --from: 60%;
+      --to: 80%;
+    }
+
+    .blur-layer:nth-child(8) {
+      --blur: 10.7px;
+      --from: 70%;
+      --to: 90%;
+    }
+
+    .blur-layer:nth-child(9) {
+      --blur: 13.8px;
+      --from: 80%;
+      --to: 100%;
+    }
+
+    .blur-layer:nth-child(10) {
+      --blur: 17px;
+      --from: 90%;
+      --to: 100%;
+    }
+
+    .settings-launcher {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 100;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-strong);
+      color: var(--button-ink);
+      box-shadow: 0 15px 40px rgba(0,0,0,.16);
+      transition: transform .25s var(--ease), box-shadow .25s ease, background .35s ease;
+    }
+
+    .settings-launcher:hover,
+    .settings-launcher:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 19px 45px rgba(0,0,0,.22);
+      outline: none;
+    }
+
+    .settings-launcher svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+    }
+
+    .settings-toast {
+      position: fixed;
+      right: 24px;
+      bottom: 88px;
+      z-index: 99;
+      width: min(350px, calc(100vw - 32px));
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 21px;
+      background: var(--surface-strong);
+      color: var(--ink);
+      box-shadow: 0 20px 65px rgba(0,0,0,.22);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(22px) scale(.97);
+      transform-origin: bottom right;
+      transition: opacity .22s ease, transform .28s var(--ease);
+    }
+
+    .settings-toast.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .toast-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 17px;
+    }
+
+    .toast-heading h2 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: -.025em;
+    }
+
+    .toast-heading p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .save-state {
+      color: var(--muted);
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .control-group + .control-group {
+      margin-top: 15px;
+    }
+
+    .control-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .segmented.three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .segmented button {
+      min-height: 31px;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .segmented button:hover,
+    .segmented button:focus-visible {
+      color: var(--ink);
+      outline: none;
+    }
+
+    .segmented button[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--page-base);
+    }
+
+    .hue-control {
+      display: grid;
+      grid-template-columns: 1fr 50px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hue-control output {
+      min-height: 31px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 5px;
+      appearance: none;
+      border-radius: 999px;
+      outline: none;
+      background: linear-gradient(
+        90deg,
+        hsl(0 80% 68%),
+        hsl(45 80% 68%),
+        hsl(90 72% 62%),
+        hsl(180 72% 62%),
+        hsl(240 78% 70%),
+        hsl(300 74% 70%),
+        hsl(360 80% 68%)
+      );
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      width: 19px;
+      height: 19px;
+      appearance: none;
+      border: 2px solid var(--surface-strong);
+      border-radius: 50%;
+      background: var(--ink);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      border: 2px solid var(--surface-strong);
+      border-radius: 50%;
+      background: var(--ink);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .keyboard-note {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    .keyboard-note kbd {
+      padding: 2px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-size: 9px;
+    }
+
+    @media (max-width: 680px) {
+      .site-header,
+      .hero,
+      .article {
+        width: min(100% - 28px, 840px);
+      }
+
+      .site-header {
+        padding-top: 18px;
+      }
+
+      .top-note {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 90px;
+      }
+
+      .hero h1 {
+        font-size: clamp(62px, 19vw, 110px);
+      }
+
+      .article-section {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 38px 0 60px;
+      }
+
+      .section-number {
+        padding-top: 0;
+      }
+
+      .settings-launcher {
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .settings-toast {
+        right: 16px;
+        bottom: 78px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="light" data-layer="within">
+  <div class="page-backdrop" aria-hidden="true"></div>
+
+  <main class="content-layer" id="contentLayer">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark">∿</span>
+        <span>Progressive Blur / Test 02</span>
+      </div>
+
+      <span class="top-note">Scroll through the field</span>
+    </header>
+
+    <section class="hero" aria-labelledby="pageTitle">
+      <h1 id="pageTitle">A softer<br>edge to depth.</h1>
+
+      <p>
+        This is a long-form test surface for progressive blur. Move the content
+        through the stack and watch the same page shift from crisp to softened
+        without changing its hue.
+      </p>
+
+      <div class="hero-meta">
+        <span class="meta-chip">Neutral blur layers</span>
+        <span class="meta-chip layer-state" id="layerState">
+          Content · within blur
+        </span>
+      </div>
+    </section>
+
+    <article class="article">
+      <section class="article-section">
+        <div class="section-number">01 / Field</div>
+
+        <div>
+          <h2>The background carries the color.</h2>
+
+          <p>
+            The page beneath this article is the only part responsible for hue.
+            It is an oversized field of color with a few slow, quiet forms
+            moving through it. The blur layers above are intentionally neutral,
+            so their behavior can be studied without a second palette
+            interfering with the result.
+          </p>
+
+          <p>
+            That separation makes the effect easier to read. A colored object
+            becomes a sample. A line of text becomes a measuring instrument.
+            The farther it travels into the stack, the more its edges surrender
+            to the surface around it.
+          </p>
+
+          <div class="swatch-row" aria-label="Color samples">
+            <span class="swatch"></span>
+            <span class="swatch"></span>
+            <span class="swatch"></span>
+            <span class="swatch"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="article-section">
+        <div class="section-number">02 / Layer</div>
+
+        <div>
+          <h2>Depth is a relationship, not a decoration.</h2>
+
+          <p>
+            When content sits above the stack, every letter remains exact. When
+            it sits inside, the page becomes a gradient of legibility: a little
+            softness at the top, a stronger veil at the bottom. When it sits
+            below, the layers become a quiet boundary between the viewer and
+            the message.
+          </p>
+
+          <p>
+            Try each position from the floating controls. The setting changes
+            the stacking order of this entire article, not a screenshot or a
+            fake opacity treatment. Scroll slowly and let the fixed blur field
+            move across the content.
+          </p>
+
+          <p class="quote">
+            The useful question is not “how much blur?” but “where does the blur
+            begin to belong?”
+          </p>
+        </div>
+      </section>
+
+      <section class="article-section">
+        <div class="section-number">03 / Motion</div>
+
+        <div>
+          <h2>Scroll is the simplest test instrument.</h2>
+
+          <p>
+            A fixed layer stack makes the relationship visible over time. The
+            top of the viewport is close to clear, the lower edge is
+            progressively more obscured, and the content keeps moving behind
+            it. This lets you inspect transition zones instead of judging one
+            isolated blur radius.
+          </p>
+
+          <p>
+            Look for the moment that text stops feeling printed on the page and
+            starts feeling embedded in it. That threshold is affected by type
+            size, line height, contrast, background noise and the density of the
+            layers themselves.
+          </p>
+        </div>
+      </section>
+
+      <section class="article-section">
+        <div class="section-number">04 / Contrast</div>
+
+        <div>
+          <h2>Light and dark change the material read.</h2>
+
+          <p>
+            Switching the theme keeps the same progressive radii but changes the
+            neutral veil and the page contrast around it. In light mode, the
+            layers read like a thin, luminous sheet. In dark mode, they become a
+            softer, denser obstruction.
+          </p>
+
+          <p>
+            Neither mode is the “correct” one. They are two lighting conditions
+            for the same experiment. The useful comparison is whether the
+            transition still feels continuous, and whether the content remains
+            understandable at the point where you want it to.
+          </p>
+
+          <p class="quote">
+            A surface can hide information without feeling like a wall.
+          </p>
+        </div>
+      </section>
+
+      <section class="article-section">
+        <div class="section-number">05 / Texture</div>
+
+        <div>
+          <h2>Small details reveal the stack.</h2>
+
+          <p>
+            Thin borders, compact labels and soft color changes are especially
+            good at exposing a progressive blur. Large blocks can remain
+            convincing even when heavily softened. Fine details show where the
+            browser begins sampling the background and how the masks overlap one
+            another.
+          </p>
+
+          <p>
+            Use the hue slider to create new test conditions. Keep the content
+            position fixed, then compare a warm field with a cool one. The blur
+            stays neutral; only the page beneath it changes.
+          </p>
+        </div>
+      </section>
+
+      <section class="article-section">
+        <div class="section-number">06 / Record</div>
+
+        <div>
+          <h2>Keep the transition quiet.</h2>
+
+          <p>
+            The best progressive blur does not announce every layer. It should
+            feel like a gradual change in atmosphere: clear enough to invite
+            reading, soft enough to establish depth, and controlled enough that
+            the viewer can still understand what is behind the surface.
+          </p>
+
+          <p>
+            This page is deliberately oversized so the effect has room to
+            breathe. Keep scrolling, change the content layer, and use the
+            settings toast whenever you want to return to a known state. Your
+            last mode, layer and hue are saved in this browser.
+          </p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <div class="blur-stack" aria-hidden="true">
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+    <div class="blur-layer"></div>
+  </div>
+
+  <section
+    class="settings-toast"
+    id="settingsToast"
+    role="dialog"
+    aria-label="Playground settings"
+    aria-hidden="true"
+  >
+    <div class="toast-heading">
+      <div>
+        <h2>Playground settings</h2>
+        <p>Changes save automatically.</p>
+      </div>
+
+      <span class="save-state" id="saveState">Saved</span>
+    </div>
+
+    <div class="control-group">
+      <span class="control-label">Appearance</span>
+
+      <div class="segmented">
+        <button
+          type="button"
+          data-theme-choice="light"
+          aria-pressed="true"
+        >
+          Light
+        </button>
+
+        <button
+          type="button"
+          data-theme-choice="dark"
+          aria-pressed="false"
+        >
+          Dark
+        </button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="hueRange">Page hue</label>
+
+      <div class="hue-control">
+        <input
+          id="hueRange"
+          type="range"
+          min="0"
+          max="360"
+          value="343"
+          aria-label="Page hue"
+        >
+
+        <output id="hueOutput" for="hueRange">343°</output>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span class="control-label">Content layer</span>
+
+      <div class="segmented three">
+        <button
+          type="button"
+          data-layer-choice="above"
+          aria-pressed="false"
+        >
+          Above
+        </button>
+
+        <button
+          type="button"
+          data-layer-choice="within"
+          aria-pressed="true"
+        >
+          Within
+        </button>
+
+        <button
+          type="button"
+          data-layer-choice="below"
+          aria-pressed="false"
+        >
+          Below
+        </button>
+      </div>
+    </div>
+
+    <p class="keyboard-note">
+      Press <kbd>Esc</kbd> to close. The panel slides down after a short pause.
+    </p>
+  </section>
+
+  <button
+    class="settings-launcher"
+    id="settingsLauncher"
+    type="button"
+    aria-label="Open playground settings"
+    aria-expanded="false"
+    aria-controls="settingsToast"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 8.7a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6Z"></path>
+
+      <path
+        d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1A1.7 1.7 0 0 0 6.2 12a1.7 1.7 0 0 0-1.2-2.9h-.2a1.7 1.7 0 1 1 0-3.4H5a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1A1.7 1.7 0 0 0 11.5 1h.2a1.7 1.7 0 1 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1A1.7 1.7 0 0 0 21.6 8v.2a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"
+        transform="translate(-1.5 4.5) scale(.75)"
+      ></path>
+    </svg>
+  </button>
+
+  <script>
+    (() => {
+      const storageKey = "progressive-blur-playground";
+      const root = document.documentElement;
+      const body = document.body;
+      const layerState = document.getElementById("layerState");
+      const toast = document.getElementById("settingsToast");
+      const launcher = document.getElementById("settingsLauncher");
+      const saveState = document.getElementById("saveState");
+      const hueRange = document.getElementById("hueRange");
+      const hueOutput = document.getElementById("hueOutput");
+
+      let closeTimer;
+
+      const defaults = {
+        theme: "light",
+        hue: 343,
+        layer: "within"
+      };
+
+      let state = {
+        ...defaults
+      };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey));
+
+        if (saved && typeof saved === "object") {
+          state = {
+            ...defaults,
+            ...saved
+          };
+        }
+      } catch (_) {}
+
+      const layerNames = {
+        above: "above blur",
+        within: "within blur",
+        below: "below blur"
+      };
+
+      const layerZ = {
+        above: 40,
+        within: 12,
+        below: 1
+      };
+
+      function save() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (_) {}
+
+        saveState.textContent = "Saved just now";
+
+        window.clearTimeout(saveState.timer);
+
+        saveState.timer = window.setTimeout(() => {
+          saveState.textContent = "Saved";
+        }, 1200);
+      }
+
+      function sync() {
+        body.dataset.theme = state.theme;
+        body.dataset.layer = state.layer;
+
+        root.style.setProperty("--hue", state.hue);
+        root.style.setProperty("--content-z", layerZ[state.layer]);
+
+        hueRange.value = state.hue;
+        hueOutput.value = state.hue + "°";
+        hueOutput.textContent = state.hue + "°";
+
+        layerState.textContent =
+          "Content · " + layerNames[state.layer];
+
+        document
+          .querySelectorAll("[data-theme-choice]")
+          .forEach(button => {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.themeChoice === state.theme)
+            );
+          });
+
+        document
+          .querySelectorAll("[data-layer-choice]")
+          .forEach(button => {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.layerChoice === state.layer)
+            );
+          });
+      }
+
+      function scheduleClose() {
+        window.clearTimeout(closeTimer);
+        closeTimer = window.setTimeout(closeToast, 1900);
+      }
+
+      function openToast() {
+        window.clearTimeout(closeTimer);
+
+        toast.classList.add("is-open");
+        toast.setAttribute("aria-hidden", "false");
+        launcher.setAttribute("aria-expanded", "true");
+      }
+
+      function closeToast() {
+        toast.classList.remove("is-open");
+        toast.setAttribute("aria-hidden", "true");
+        launcher.setAttribute("aria-expanded", "false");
+      }
+
+      launcher.addEventListener("click", () => {
+        if (toast.classList.contains("is-open")) {
+          closeToast();
+        } else {
+          openToast();
+        }
+      });
+
+      toast.addEventListener("mouseenter", () => {
+        window.clearTimeout(closeTimer);
+      });
+
+      toast.addEventListener("mouseleave", scheduleClose);
+
+      toast.addEventListener("focusin", () => {
+        window.clearTimeout(closeTimer);
+      });
+
+      toast.addEventListener("focusout", event => {
+        if (!toast.contains(event.relatedTarget)) {
+          scheduleClose();
+        }
+      });
+
+      document
+        .querySelectorAll("[data-theme-choice]")
+        .forEach(button => {
+          button.addEventListener("click", () => {
+            state.theme = button.dataset.themeChoice;
+            sync();
+            save();
+            scheduleClose();
+          });
+        });
+
+      document
+        .querySelectorAll("[data-layer-choice]")
+        .forEach(button => {
+          button.addEventListener("click", () => {
+            state.layer = button.dataset.layerChoice;
+            sync();
+            save();
+            scheduleClose();
+          });
+        });
+
+      hueRange.addEventListener("input", event => {
+        state.hue = Number(event.target.value);
+        sync();
+        save();
+        scheduleClose();
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+          closeToast();
+        }
+      });
+
+      sync();
+    })();
+  </script>
+</body>
+</html>
